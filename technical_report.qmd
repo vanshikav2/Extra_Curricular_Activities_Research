@@ -1,0 +1,168 @@
+---
+title: "Cap On Student Visas in Canada Show Significant GDP Loss"
+subtitle: "House Price Index To Also Take A Hit"
+author: 
+  - Vanshika Vanshika
+  - Navya Hooda
+  - Shea
+  - Alexia
+  - Chloe
+  
+thanks: "Code and data are available at: https://github.com/vanshikav2/Immigration."
+date: today
+date-format: long
+abstract: "It is known that for university students to have a well-rounded university experience, participation in extra-curricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors and the diversity of student activities/clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third year Statistics course to complete. Findings showed that there was no significant relationship between campus distance and program of study with extra-curricular involvement. From Figure 2, the boxplot shows that there was some gender influence on the participation of extra-curricular activity, however this variation is not statistically relevant as the p-value was 1. Although results did not produce any significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM."
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{pgfplots}
+format: pdf
+number-sections: true
+bibliography: references.bib
+toc: true
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(here)
+library(reshape2)
+```
+
+
+# Introduction
+
+In our study, we were interested in the participation of STA304 students in extracurricular activities (ECAs). In particular, we analyzed if various demographic factors affected students’ participation in ECAs. During the first three weeks of October 2024, we distributed a survey on the STA304 Piazza discussion board in order to collect data on student demographic factors and information on individual participation in ECAs. Our study consisted of three research questions: 
+
+## Research Questions and Hypotheses
+
+1. **Research Question 1**: What is the most preferred type of extracurricular activity, and do demographic factors influence student preferences for certain extracurricular activities?  
+   - **H₀**: Student demographic factors have no effect on participation in extracurricular activities.
+   - **Hₐ**: Participation in extracurricular activities is affected by demographic factors.
+
+2. **Research Question 2**: Does proximity to campus affect participation in extracurricular activities?  
+   - **H₀**: Proximity to campus has no effect on participation in extracurricular activities.
+   - **Hₐ**: Students living further from campus will have lower participation rates.
+
+3. **Research Question 3**: Does timing/scheduling of extracurricular activities impact student participation in extracurricular activities?  
+   - **H₀**: Timing/scheduling of extracurricular activities has no impact on student participation.
+   - **Hₐ**: Participation in extracurricular activities is affected by their timing/scheduling.
+
+The remainder of the research paper will be structured as follows: @sec-data covers data collection and methodology; @sec-data1 presents survey findings and data analysis; @sec-data2 goes over the interpretation of our results; @sec-data3 discusses the study limitations; @sec-data4 concludes the paper; @sec-data5 contains an appendix.  
+
+# Data {#sec-data}
+
+## Methodology
+
+Data collection began in the first three weeks of October 2024, an online anonymous survey on Google Forms was created for students to complete. This survey was created to investigate the reasons that students select and participate in certain ECAs. This online survey was posted to a Piazza thread where students can easily locate the survey link. The sampling method used was Stratified Random Sampling where the strata were the STA304 lecture sections (ie. LEC0101 and LEC0102). Randomness was ensured as the link to the survey was posted to Piazza where everyone had the equal opportunity to complete the survey and be chosen for the study. We collected a sample of 200 students. The survey consisted of 10 questions asking for details on their lecture section, demographic information, program of study, and distance from the UTM campus. We also included questions on the number, types of activities and the time commitment of the ECAs they are involved in. To encourage students to complete our online survey, we asked participants to share a link to their group's survey, which we would complete in return.
+
+
+# Analysis{#sec-data1}
+
+## Research Question 1
+
+## Research Question 2
+In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities. The hypothesis was that students who live further from campus may participate less due to travel constraints.
+
+Statistical Test:
+To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we verified that both variables met the normality assumption.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: cor
+library(rstanarm)
+
+distance <- cor.test(data$campusDistance, data$activityCount)
+distance
+
+```
+
+As shown in @cor, The Pearson correlation coefficient was close to zero, and the p-value exceeded 0.05, indicating no significant relationship between campus distance and ECA participation.
+
+## Research Question 3
+
+
+
+# Discussion{#sec-data2}
+In this study, we sought to identify the factors that significantly contribute to the Gross Domestic Product (GDP) and Inflation Rate. We applied a Bayesian generalized linear model to a dataset encompassing a range of economic indicators over a period of years.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+
+library(rstanarm)
+
+gdp_model <-
+  readRDS(file = here::here("models/gdp_model.rds"))
+
+inflation_model <-
+  readRDS(file = here::here("models/inflation_model.rds"))
+
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresults
+#| tbl-cap: "Explanatory models of GDP"
+#| warning: false
+
+modelsummary::modelsummary(
+  list(
+    "GDP model" = gdp_model
+  ),
+  statistic = "mad",
+  fmt = 2
+)
+```
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresultss
+#| tbl-cap: "Explanatory models of Inflation"
+#| warning: false
+
+
+modelsummary::modelsummary(
+  list(
+    "Inflation model" = inflation_model
+  ),
+  statistic = "mad",
+  fmt = 2
+)
+```
+
+
+# Limitations{#sec-data3}
+
+This study aimed to understand the reasons why students select and participate in ECAs at UTM. Although our results did not yield significant findings, several limitations may have contributed to this outcome. 
+
+One such notable limitation is the way in which our data was collected. Although we proposed to collect data using a Stratified Random Sample, the data was analysed using a Simple Random Sample. Although randomness was ensured throughout data collection, the data was not analyzed with strata. 
+
+Another notable limitation is the possible selection bias as most participants were of the LEC0101 lecture section. 
+
+In the future studies, we would remove the multi-select option when choosing a program of study and days of the week students participate in activities as it can simplify data analysis by making it easier to categorize and aggregate data. 
+
+
+
+
+
+\newpage
+
+
+# References
+
+

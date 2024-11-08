@@ -1,0 +1,64 @@
+studentID,lectureSection,genderIdentity,major,studentStatus,campusDistance,activityCount,activityType,timeCommitment,dayCommitment,studentInvolvement
+AdditiveModel996,1,F,"STA, MAT",D,5,0,NEC,0,NAN,0
+BachelorPlus364,2,M,"STA, ECO",I,3,1,AAS,1,"Th, F",7
+Badminton,1,F,NLA,I,1,1,AAS,1,"M, W, Th",7
+basketball,1,M,"STA, MAT",I,0,0,NEC,0,NAN,0
+BioSTA197,2,M,"STA, NLA",D,1,1,AAS,1,Th,6
+Boohbahs138,1,M,"STA, ECO",I,2,2,AAS,4,"Sa, Su",8
+ClubPenguiNAN,2,M,STA,D,1,1,AAS,1,"M, W, F, Su",9
+ClubPenguinK,2,M,"STA, CSC",D,4,1,AAS,1,"M, W, F",7
+ClubPenguinO,1,M,STA,D,2,4,"AAS, ACS, CLU, LSG",4,"M, Tu, W, Th, F, Sa, Su",6
+ClubPenguinP1,2,M,STA,D,3,0,NEC,0,NAN,1
+ComputatioNANlSTA364,1,M,STA,D,5,0,NEC,0,NAN,0
+ComputatioNANlSTA426,2,F,ECO,I,1,0,NEC,0,NAN,0
+ComputatioNANlSTA723,2,F,"STA, ECO",I,2,0,NEC,0,NAN,0
+Doodle239,1,F,STA,D,5,1,CLU,1,NAN,6
+expectedval,1,M,"STA, CSC",D,1,4,"AAS, ACS, CLU",3,"M, Tu, W, Th, F",7
+ExpensiveToronto12,2,M,STA,D,1,0,NEC,0,NAN,0
+ExpensiveToronto55,2,M,"STA, MAT",I,1,0,NEC,0,"Sa, Su",0
+FiNANlFantasy14,2,F,"STA, ECO",I,1,3,CLU,2,Th,6
+ggplotMyBeloved369,2,M,STA,I,2,0,NEC,0,NAN,0
+good2data,1,M,"STA, ECO",D,3,3,"AAS, ACS",3,"M, W, F",7
+GPADestroyerwww,1,F,"STA, ECO",D,2,1,AAS,1,"M, W, F",4
+GPADestroyerxxx,1,F,"STA, LSC",D,1,1,CLU,1,Tu,6
+GPADestroyeryyy,1,F,"STA, ECO",D,1,1,AAS,1,"M, Th, F",9
+GPADestroyerzzz,1,M,"STA, CSC",D,5,1,AAS,1,F,7
+HamiltonHousing831,1,F,ECO,I,1,1,LSG,3,"M, Tu, W, Th, F",10
+HappyTent109,1,F,"STA, LSC",I,1,3,"AAS, NEC",1,"M, Tu, W, Th, F, Sa, Su",5
+HappyTent234,1,F,ECO,I,1,0,NEC,0,NAN,1
+HappyTent829,1,M,MAT,D,3,0,NEC,0,M,4
+https://forms.gle/JeukHgZ63szkRehJ7,2,F,NLA,D,5,0,NEC,0,NAN,0
+justsayin123,1,M,"STA, ECO",I,3,1,AAS,1,W,8
+legendofzelda,2,M,"STA, ECO",I,2,0,NEC,0,NAN,0
+LovelyLuai112,1,M,"STA, CSC",D,3,0,NEC,0,NAN,0
+LovelyLuai445,1,M,STA,I,5,3,"AAS, CLU",2,"W, F, Su",7
+LovelyLuai456,2,M,STA,I,1,0,NEC,0,NAN,1
+markk,1,M,STA,D,1,3,AAS,5,"M, Tu, W, Th, F, Sa, Su",10
+MathIsBetter456,1,F,"STA, ECO",I,2,2,"ACS, LSG",1,M,7
+Money,2,M,"STA, ECO",I,1,0,NEC,0,NAN,0
+Moolah,1,M,ECO,I,2,0,NEC,0,NAN,0
+mtcarsMyBelovedowo,2,M,STA,I,2,0,NEC,0,NAN,0
+NeedPiazza444,2,F,"STA, ECO",D,1,2,"CLU, LSG",1,"M, Th",7
+NonemptyDataset4387,2,M,"STA, MAT",D,1,0,NEC,0,NAN,6
+PleaseStop,1,M,"STA, CSC",D,5,1,AAS,1,Th,7
+project024,1,M,ECO,I,2,0,NEC,0,Tu,5
+project789,1,M,ECO,I,3,1,AAS,1,F,5
+RateMyProfessor1000,2,F,"STA, ECO",I,1,2,"AAS, LSG",2,Sa,7
+RateMyProfessor2000,2,F,STA,I,1,2,CLU,1,Th,4
+researching,1,M,"MAT, CSC",D,1,0,NEC,0,NAN,5
+setseed863,1,M,ECO,I,2,2,LSG,3,Th,4
+setseed952,1,F,NLA,D,2,1,AAS,1,"M, W, F",5
+soccer,1,F,"STA, NLA",I,0,2,"CLU, LSG",2,"M, W, Th",7
+Sta304 Jiaxi Yin 1005490899,1,M,"STA, ECO",I,3,0,NEC,0,Tu,5
+stdev,1,M,"STA, MAT",D,3,2,"AAS, CLU",3,"M, Tu, W, Th, F",7
+super2data,1,M,"STA, CSC",D,1,0,NEC,0,NAN,0
+Teletubbies345,1,F,"STA, ECO",I,2,2,"AAS, CLU",2,"W, Su",6
+Teletubbies348,2,F,STA,I,1,0,NEC,0,Su,0
+tidyverseMyBeloved034,1,M,NLA,D,4,1,AAS,1,F,4
+tidyverseMyBeloved135,2,M,"STA, MAT",D,3,1,CLU,1,"F, Sa",4
+tidyverseMyBeloved315,1,F,NLA,I,1,0,NEC,0,NAN,0
+tidyverseMyBeloved435,2,F,MAT,D,5,0,NEC,0,NAN,0
+tidyverseMyBeloved645,2,M,STA,D,3,2,"AAS, CLU",1,"Tu, F",6
+variance,1,M,"STA, MAT",D,5,2,"AAS, CLU",3,"M, Tu, Th, F",9
+veggie647,1,F,ECO,D,2,2,ACS,3,"W, Th",8
+Veggie656,2,M,STA,D,5,2,"AAS, ACS",1,"M, W",5
