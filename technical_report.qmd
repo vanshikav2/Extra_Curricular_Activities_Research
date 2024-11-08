@@ -89,6 +89,33 @@ distance
 
 As shown in @cor, The Pearson correlation coefficient was close to zero, and the p-value exceeded 0.05, indicating no significant relationship between campus distance and ECA participation.
 
+This can also be seen from @plot1, where they seems to be no relation between the variables.
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Scatter Plot"
+#| label: plot1
+# Load necessary libraries
+library(ggplot2)
+
+
+data <- read.csv("STA304_TheOutliers_CleanedData.csv")
+# Calculate correlation between campusDistance and activityCount
+correlation <- cor(data$campusDistance, data$activityCount, use = "complete.obs")
+
+# Create a scatter plot
+ggplot(data, aes(x = campusDistance, y = activityCount)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Campus Distance vs. Activity Count",
+       x = "Distance from Campus",
+       y = "Number of Extracurricular Activities") +
+  theme_minimal()
+
+
+```
+
 ## Research Question 3
 
 
