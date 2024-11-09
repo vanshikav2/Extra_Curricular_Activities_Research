@@ -1,6 +1,6 @@
 ---
-title: "Cap On Student Visas in Canada Show Significant GDP Loss"
-subtitle: "House Price Index To Also Take A Hit"
+title: "Various Demographic Factors Effect on Students’ Participation In ECA's"
+subtitle: "Data Cololected from STA304 Class"
 author: 
   - Vanshika Vanshika
   - Navya Hooda
@@ -18,7 +18,6 @@ header-includes:
   - \usepackage{pgfplots}
 format: pdf
 number-sections: true
-bibliography: references.bib
 toc: true
 ---
 
@@ -33,6 +32,8 @@ library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
+data <- read.csv("STA304_TheOutliers_CleanedData.csv")
+
 ```
 
 
@@ -43,16 +44,16 @@ In our study, we were interested in the participation of STA304 students in extr
 ## Research Questions and Hypotheses
 
 1. **Research Question 1**: What is the most preferred type of extracurricular activity, and do demographic factors influence student preferences for certain extracurricular activities?  
-   - **H₀**: Student demographic factors have no effect on participation in extracurricular activities.
-   - **Hₐ**: Participation in extracurricular activities is affected by demographic factors.
+   - **Ho**: Student demographic factors have no effect on participation in extracurricular activities.
+   - **Ha**: Participation in extracurricular activities is affected by demographic factors.
 
 2. **Research Question 2**: Does proximity to campus affect participation in extracurricular activities?  
-   - **H₀**: Proximity to campus has no effect on participation in extracurricular activities.
-   - **Hₐ**: Students living further from campus will have lower participation rates.
+   - **Ho**: Proximity to campus has no effect on participation in extracurricular activities.
+   - **Ha**: Students living further from campus will have lower participation rates.
 
 3. **Research Question 3**: Does timing/scheduling of extracurricular activities impact student participation in extracurricular activities?  
-   - **H₀**: Timing/scheduling of extracurricular activities has no impact on student participation.
-   - **Hₐ**: Participation in extracurricular activities is affected by their timing/scheduling.
+   - **Ho**: Timing/scheduling of extracurricular activities has no impact on student participation.
+   - **Ha**: Participation in extracurricular activities is affected by their timing/scheduling.
 
 The remainder of the research paper will be structured as follows: @sec-data covers data collection and methodology; @sec-data1 presents survey findings and data analysis; @sec-data2 goes over the interpretation of our results; @sec-data3 discusses the study limitations; @sec-data4 concludes the paper; @sec-data5 contains an appendix.  
 
@@ -64,12 +65,205 @@ Data collection began in the first three weeks of October 2024, an online anonym
 
 
 # Analysis{#sec-data1}
+The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions. 
+
+There were slightly more responses from LEC0101, approximately a 6:4 ratio LEC0101 to LEC0102.
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: p1
+library(treemapify)
+library(tidyverse)
+lecCounts=as.data.frame(table(data$lectureSection))
+lecLabs=c("LEC0101", "LEC0102")
+ggplot(data=lecCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + geom_treemap(color="black", size = 1.0) + 
+  labs(title="Lecture Section Breakdown", x="Sample Size n = 63") +
+  theme_minimal() + 
+  scale_fill_brewer(name="Options", labels=lecLabs, palette = "Set2") + 
+  geom_treemap_text(colour="black", place="center") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+There was a higher percentage of males in the class, approximately a 6:4 ratio, with no students responding Other or Prefer Not to Answer.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: p2
+all_genderIdents=c("M", "F", "O", "P")
+genderCounts=as.data.frame(table(factor(data$genderIdentity, levels= all_genderIdents)))
+gendLabs=c("Male", "Female", "Other", "Prefer Not To Say")
+ggplot(data=genderCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
+    geom_treemap(color="black", size=1.0) + 
+    labs(title="Gender Identity Breakdown", x="Sample Size n = 63") + theme_minimal() + 
+    scale_fill_brewer(name="Options", labels=gendLabs, palette = "Set2") + 
+    geom_treemap_text(colour="black", place="center") + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+Students picked up to 2 majors, with STA seeing a significant share.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: p3
+majTab=table(gsub("\\s+", "", unlist(strsplit(data$major,",")))) # Split into Single Items
+majDF=as.data.frame(majTab) # Convert to Data Frame
+majDF$Var1=fct_relevel(majDF$Var1, c("STA", "MAT", "CSC", "ECO", "LSC", "NLA")) # Refactor for Correct Plot Order
+majLabs=c("Applied Staistics", "Mathematics", "Computer Science", "Economics", "Life Sciences (Bio, Chem, Phys)", "Not Listed")
+ggplot(data=majDF, aes(x=Var1, y=Freq, fill=Var1)) + 
+  geom_bar(stat="identity", color="Black") + 
+  labs(x="Majors", y="Count", title = "Majors Breakdown") + 
+  theme_light() + 
+  scale_fill_brewer(name="Options:", labels=majLabs, palette="Set2") + 
+  geom_text(aes(label=Freq), vjust=-.3, color="black") + 
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_text(size=12, angle=90))
+```
+We had almost an even balance of Domestic and International students. 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: p4
+statusCounts=as.data.frame(table(data$studentStatus))
+statusLabs=c("Domestic", "International")
+ggplot(data=statusCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
+  geom_treemap(color="black", size=1.0) +
+  labs(title="Student Status in Canada", x="Total = 63") + theme_minimal() +
+  scale_fill_brewer(name="Options", labels=statusLabs, palette = "Set2") + 
+  geom_treemap_text(colour="black", place="center")
+
+```
+
+Finally, we recorded students living distance from campus. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: p5
+distanceDF=as.data.frame(table(data$campusDistance))
+distanceLabs=c("On Campus", "0-5km", "6-10km", "11-15km", "16-20km", "21+km")
+ggplot(data=distanceDF, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
+  geom_treemap(color="black", size=1.0) + 
+  labs(title = "Student Living Distance From Campus", x="Sample Size = 63") +
+  theme_minimal() +
+  scale_fill_brewer(name="Distance", labels=distanceLabs, palette = "Set2") + 
+  geom_treemap_text(color="black", place="center") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 ## Research Question 1
+In RQ1, we analysed what is the most preferred type of extracurricular activity and do demographic factors influence people’s selection or preference for certain extracurricular activities. 
 
+NOTE: For easy analysis and ability to come up with clearer conclusions, the Major column and the activity column were split into different rows.  
+
+For the most preferred type of extracurricular activity, we were able to get the count of students in the different extracurricular activities and display a graph showing the counts of students in each extracurricular activity. 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: r1
+activityCount <- data %>% group_by(activityType) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count))
+activityCount
+#Graph showing Activity counts
+ggplot(data, aes(x = activityType)) +
+  geom_bar(fill = "yellow") +
+  geom_text(stat = "count", aes(label = ..count..)) + 
+  labs(title = "Count of Students by Activity Type", x = "Activity Type", y = "Count") +
+  theme_minimal()
+
+```
+
+The most popular extracurricular activity among students was Athletics and Sports (AAS) and the least popular extracurricular activity is Academic Societies (ACS). It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity. 
+
+To investigate the proportion of students participating in each activity by demographic factors like major, studentStatus and genderIdentity. These diagrams are able to provide an initial view of how activity participation varies across the different groups. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: r2
+proportions_major <- data %>% group_by(major, activityType) %>%
+  summarize(count = n(), .groups = "drop") %>%
+  group_by(major) %>%
+  mutate(proportion = count / sum(count))
+
+print(proportions_major, n = 24)
+
+```
+
+From the visual representation we can see that there is no significant difference in activity participation across majors.  
+
+We also conducted an ANOVA test, and we can see that the boxplot aligns with our results. At a significance level of 0.05, We had an F-Value of 0.646 and a p-value of 0.668 indicating that there was no variation in the activity participation in the different majors to be considered significant.  
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: r3
+proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>%
+  summarize(count = n(), .groups = "drop") %>%
+  group_by(genderIdentity) %>%
+  mutate(proportion = count / sum(count))
+
+print(proportions_genderIdentity, n = 10)
+```
+
+From the Boxplot, we can see that the boxplot for the females is relatively narrow whilst that of the males is wide. We can see that males have a wider range of participation in different activities compared to women. This variation can suggest that there is some gender influence on activity participation. 
+
+After conducting the T-test, at 0.05 significance level, we can conclude that this variation is not statistically significant as the p value is 1 indicating that we accept the null hypothesis that there is no significant difference in the mean proportion of activity participation between females and males. Both genders have the same average participation of 0.2. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Correlation Analysis"
+#| label: r4
+proportions_studentStatus <- data %>% group_by(studentStatus, activityType) %>%
+  summarize(count = n(), .groups = "drop") %>%
+  group_by(studentStatus) %>%
+  mutate(proportion = count / sum(count))
+
+print(proportions_studentStatus, n = 10)
+
+``` 
+ 
+The t-test results show a t value of 0 and a p-value of 1 indicating that there is no significant difference in the mean proportions of activity participation between the two groups. We can also see that the two groups have the same mean proportion of 0.2.  
+
+ 
+
+With this, we have observed that there is no significant influence of major, student status and gender on activity participation. It suggests that the choice of extracurricular activities is independent of one’s demographics. 
+
+ 
 ## Research Question 2
 In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities. The hypothesis was that students who live further from campus may participate less due to travel constraints.
 
+### Campus Distance and Activity Count
 Statistical Test:
 To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we verified that both variables met the normality assumption.
 
@@ -100,8 +294,6 @@ This can also be seen from @plot1, where they seems to be no relation between th
 # Load necessary libraries
 library(ggplot2)
 
-
-data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 # Calculate correlation between campusDistance and activityCount
 correlation <- cor(data$campusDistance, data$activityCount, use = "complete.obs")
 
@@ -115,6 +307,65 @@ ggplot(data, aes(x = campusDistance, y = activityCount)) +
 
 
 ```
+### Campus Distance and Time Commitment
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Scatter Plot"
+#| label: plot2
+# Load necessary libraries
+library(ggplot2)
+
+
+correlation <- cor(data$campusDistance, data$timeCommitment, use = "complete.obs")
+
+# Create a scatter plot
+ggplot(data, aes(x = campusDistance, y = timeCommitment)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Campus Distance vs. Time Given",
+       x = "Distance from Campus",
+       y = "Time given") +
+  theme_minimal()
+
+# Display the correlation result
+print(correlation)
+
+
+```
+The same can be seen in the correlation between Campus Distance and time commitment as the correlation coefficient is close to 0.
+
+### Campus Distance and Student Involvement 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Scatter Plot"
+#| label: plot3
+# Load necessary libraries
+library(ggplot2)
+
+
+#3 student involvement
+correlation <- cor(data$campusDistance, data$studentInvolvement, use = "complete.obs")
+
+# Create a scatter plot
+ggplot(data, aes(x = campusDistance, y = studentInvolvement)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Campus Distance vs. Student Involvement",
+       x = "Distance from Campus",
+       y = "Number of Extracurricular Activities") +
+  theme_minimal()
+
+# Display the correlation result
+print(correlation)
+
+```
+
+The correlation coefficient between Campus Distance and Student Involvement also show no significant relation.
 
 ## Research Question 3
 
@@ -124,53 +375,7 @@ ggplot(data, aes(x = campusDistance, y = activityCount)) +
 In this study, we sought to identify the factors that significantly contribute to the Gross Domestic Product (GDP) and Inflation Rate. We applied a Bayesian generalized linear model to a dataset encompassing a range of economic indicators over a period of years.
 
 
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
 
-library(rstanarm)
-
-gdp_model <-
-  readRDS(file = here::here("models/gdp_model.rds"))
-
-inflation_model <-
-  readRDS(file = here::here("models/inflation_model.rds"))
-
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of GDP"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "GDP model" = gdp_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresultss
-#| tbl-cap: "Explanatory models of Inflation"
-#| warning: false
-
-
-modelsummary::modelsummary(
-  list(
-    "Inflation model" = inflation_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
 
 
 # Limitations{#sec-data3}
