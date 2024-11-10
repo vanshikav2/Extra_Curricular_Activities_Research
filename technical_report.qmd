@@ -261,11 +261,14 @@ With this, we have observed that there is no significant influence of major, stu
 
  
 ## Research Question 2
-In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities. The hypothesis was that students who live further from campus may participate less due to travel constraints.
+In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities. 
+
++ Null Hypothesis ($H_{o}$): Proximity to campus (campusDistance) does not affect participation in extracurricular activities.
++ Alternative Hypothesis ($H_{1}$): Proximity to campus (campusDistance) has an effect on participation in extracurricular activities.
 
 ### Campus Distance and Activity Count
 Statistical Test:
-To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we verified that both variables met the normality assumption.
+To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we will verify the assumptions for the test first.
 
 ```{r}
 #| echo: false
@@ -273,17 +276,27 @@ To evaluate this, we used the correlation analysis test between campus distance 
 #| warning: false
 #| message: false
 #| tbl-cap: "Correlation Analysis"
-#| label: cor
-library(rstanarm)
+#| label: table1
 
-distance <- cor.test(data$campusDistance, data$activityCount)
-distance
 
+# Create summaries for campusDistance and activityCount
+campus <- summary(data$campusDistance)
+activity <- summary(data$activityCount)
+
+# Combine the summaries into a data frame
+summary_t <- data.frame(
+  Statistic = c("Min", "1st Quartile", "Median", "Mean", "3rd Quartile", "Max"),
+  CampusDistance = as.numeric(campus),
+  ActivityCount = as.numeric(activity)
+)
+
+library(knitr)
+
+kable(summary_t, format = "pipe", col.names = c("Statistic", "CampusDistance", "ActivityCount"))
 ```
+The descriptive statistics suggest that most students live fairly close to campus (within 2-3 units) and participate in 1-2 extracurricular activities. This variability in both campusDistance and activityCount supports further analysis to see if there’s a relationship between proximity and participation.
 
-As shown in @cor, The Pearson correlation coefficient was close to zero, and the p-value exceeded 0.05, indicating no significant relationship between campus distance and ECA participation.
 
-This can also be seen from @plot1, where they seems to be no relation between the variables.
 ```{r}
 #| echo: false
 #| eval: true
@@ -294,20 +307,16 @@ This can also be seen from @plot1, where they seems to be no relation between th
 # Load necessary libraries
 library(ggplot2)
 
-# Calculate correlation between campusDistance and activityCount
-correlation <- cor(data$campusDistance, data$activityCount, use = "complete.obs")
-
-# Create a scatter plot
+# Scatter plot with smoothing line to assess linearity
 ggplot(data, aes(x = campusDistance, y = activityCount)) +
-  geom_point() +
-  labs(title = "Scatter Plot of Campus Distance vs. Activity Count",
-       x = "Distance from Campus",
-       y = "Number of Extracurricular Activities") +
-  theme_minimal()
-
+  geom_point(color ="darkgreen") +
+  geom_smooth(method = "lm", col = "orange", se = FALSE) +
+  labs(title = "Campus Distance vs. Activity Count with Linear Trend Line",
+       x = "Campus Distance",
+       y = "Activity Count")
 
 ```
-### Campus Distance and Time Commitment
+Moving on we inspect the relationship between the variables. As it can be seen from @plot1, there seems to be no linear relation between the variables.
 
 ```{r}
 #| echo: false
@@ -316,28 +325,17 @@ ggplot(data, aes(x = campusDistance, y = activityCount)) +
 #| message: false
 #| tbl-cap: "Scatter Plot"
 #| label: plot2
-# Load necessary libraries
-library(ggplot2)
+# Fit preliminary model
+model <- lm(activityCount ~ campusDistance, data = data)
 
-
-correlation <- cor(data$campusDistance, data$timeCommitment, use = "complete.obs")
-
-# Create a scatter plot
-ggplot(data, aes(x = campusDistance, y = timeCommitment)) +
-  geom_point() +
-  labs(title = "Scatter Plot of Campus Distance vs. Time Given",
-       x = "Distance from Campus",
-       y = "Time given") +
-  theme_minimal()
-
-# Display the correlation result
-print(correlation)
-
+# Q-Q plot for normality of residuals
+qqnorm(residuals(model))
+qqline(residuals(model), col = "red")
 
 ```
-The same can be seen in the correlation between Campus Distance and time commitment as the correlation coefficient is close to 0.
 
-### Campus Distance and Student Involvement 
+The Q-Q plot displays how the residuals (differences between observed and fitted values) align with the normal distribution. In this case, residuals do not fully align along the red diagonal line, indicating that normality is somewhat violated. The observed points deviate in a stepwise manner, particularly at the tails, which suggests potential non-normality in residuals.
+
 ```{r}
 #| echo: false
 #| eval: true
@@ -345,27 +343,45 @@ The same can be seen in the correlation between Campus Distance and time commitm
 #| message: false
 #| tbl-cap: "Scatter Plot"
 #| label: plot3
-# Load necessary libraries
-library(ggplot2)
 
 
-#3 student involvement
-correlation <- cor(data$campusDistance, data$studentInvolvement, use = "complete.obs")
+# Residuals vs Fitted plot to assess homoscedasticity
+plot(model, which = 1)
 
-# Create a scatter plot
-ggplot(data, aes(x = campusDistance, y = studentInvolvement)) +
-  geom_point() +
-  labs(title = "Scatter Plot of Campus Distance vs. Student Involvement",
-       x = "Distance from Campus",
-       y = "Number of Extracurricular Activities") +
-  theme_minimal()
-
-# Display the correlation result
-print(correlation)
 
 ```
 
-The correlation coefficient between Campus Distance and Student Involvement also show no significant relation.
+This plot helps in identifying any non-linearity, unequal variance (heteroscedasticity), or outliers. Here, residuals seem randomly scattered around the fitted line with no obvious pattern, suggesting homoscedasticity (constant variance). However, a few points like 33, 9, and 15 appear as potential outliers, which might influence the results.
+
+
+Since there is non-normality between these  variables, we proceed with Spearman's rank correlation to analyze the association between campus distance and activity count. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Scatter Plot"
+#| label: plot4
+
+# Create a data frame to summarize the correlation test results
+correlation_results <- data.frame(
+  Test = c("Pearson's Correlation", "Spearman's Correlation"),
+  Correlation_Coefficient = c(-0.018, 0.025),
+  p_value = c(0.891, 0.847),
+  Significance = c("Not Significant", "Not Significant")
+)
+
+
+kable(correlation_results, caption = "Summary of Correlation Test Results")
+
+```
+The Spearman's rank correlation test results are as follows:
+
+- Spearman correlation coefficient: 0.025
+- p-value: 0.847
+
+This result indicates a very weak positive correlation between `campusDistance` and `activityCount`, but it is not statistically significant (p-value > 0.05). Therefore, we fail to reject the null hypothesis, suggesting no significant association between proximity to campus and participation in extracurricular activities based on this data.
 
 ## Research Question 3
 
