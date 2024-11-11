@@ -384,6 +384,203 @@ The Spearman's rank correlation test results are as follows:
 This result indicates a very weak positive correlation between `campusDistance` and `activityCount`, but it is not statistically significant (p-value > 0.05). Therefore, we fail to reject the null hypothesis, suggesting no significant association between proximity to campus and participation in extracurricular activities based on this data.
 
 ## Research Question 3
+In RQ3, we analyzed if the the timing, the time spent on extra curricular activity affected one’s level of participation in extracurricular activities. 
+
++ Null Hypothesis ($H_{o}$): Time Commitment (timeCommitment) does not affect participation levels in extracurricular activities.
++ Alternative Hypothesis ($H_{1}$): Time Commitment (timeCommitment) has an effect on participation levels in extracurricular activities. 
+
+We used the variables of student involvement (studentInvolvement) and activity count (activityCount) to represent the participation levels. 
+
+### Time Commitment and Student Involvement 
+**Statistical Test**: 
+To evaluate this, we used the correlation analysis test between time commitment and student involvement variables using Spearman’s correlation test. Before proceeding with the test, we will verify the assumptions for the test. 
+
+**Normality of Variables**:
+In our exploration we found that the variables of timeCommitment (TC), and studentInvolvement (SI) are not normally distributed as seen by the QQ plots in @Normality_of_variables as they deviate from the normality line.
+Hence we proceeded to apply the correlation test using the Spearman's coefficient instead of Pearson's coefficient (requiring normality).
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-cap: "Normality of Variables"
+#| label: Normality_of_variables 
+library(rstanarm)
+
+# Set up the plotting area for two plots side by side
+par(mfrow = c(1, 2)) 
+
+# QQ plot for timeCommitment
+qqnorm(data$timeCommitment, main = "QQ Plot (TC)", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(data$timeCommitment, col = "red")
+
+# QQ plot for studentInvolvement
+qqnorm(data$studentInvolvement, main = "QQ Plot (SI)", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(data$studentInvolvement, col = "blue")
+
+# Reset the plotting layout to default (if needed for subsequent plots)
+par(mfrow = c(1, 1))
+
+```
+
+**Monotonic Association**:
+Next we confirmed the assumption of Spearman's coefficient test requiring a monotonic relationship between the variables (timeCommitment and studentInvovlement).
+We found that the relationship between these variables was monotonic, specifically increasing as seen in @scatter_plot_monotonic_timeComit. 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-cap: "Scatter Plot"
+#| label: scatter_plot_monotonic_timeComit
+# Load necessary libraries
+library(ggplot2)
+
+# Create a scatter plot
+ggplot(data, aes(x = timeCommitment, y = studentInvolvement)) +
+  geom_point(color = "darkgreen") +                             # Set points to green
+  geom_smooth(method = "lm", color = "orange", se = FALSE) + # Set line to orange
+  ggtitle("Time Commitment and Student Involvement") +
+  xlab("Time per week (hrs)") +
+  ylab("Involvement (1-10)")
+
+
+```
+
+**Results**: 
+As seen in @spear_corr, the Spearman's correlation coefficient is 0.808, which indicates a strong positive correlation, pointing to a significant monotonic relationship between timeCommitment and studentInvolvement. p-value is < 0.05, hence the correlation is statistically significant, and we can reject null-hypothesis.
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Spearman Results"
+#| label: spear_corr
+
+# Load the necessary packages
+library(knitr)
+
+# Ensure data is defined and contains the necessary columns
+# Example: data <- data.frame(timeCommitment = ..., studentInvolvement = ...)
+
+# Perform Spearman's correlation test
+result <- cor.test(data$timeCommitment, data$studentInvolvement, method = "spearman", exact = FALSE)
+
+# Extract relevant values
+p_value <- sprintf("%.3e", result$p.value)  # Format p-value in scientific notation
+rho <- sprintf("%.3f", result$estimate)     # Format rho to 3 decimal places
+
+# Create a data frame for the table
+table_results <- data.frame(
+  Statistic = c("Spearman Coefficient (rho)", "p-value"),
+  Value = c(rho, p_value)
+)
+
+# Display the table with basic kable (without additional styling)
+kable(table_results, caption = "Spearman's Rank Correlation Results")
+
+```
+
+Hence students who spend more time in the activities are generally more involved in their contribution to the extra curricular activities as suggested by the strong association based on our data. 
+
+
+### Time Commitment and Activity Count 
+
+We wanted to check whether the time commitment and participation measured by the activityCount variable were correlated. 
+
+**Statistical Test**:
+
+As discussed before, both the timeCommitment and activityCount variables did not meet normality assumptions, so we proceed with the Spearman's correlation coefficient as our statistical test. 
+
+**Normality of Variables**:
+
+To proceed with this test, we used QQ-plots to verify normality of timeCommitment (TC) and activityCount(AC). As seen in @Normality_of_variables_2 they are non-normal variables due to their deviation from the normal line.
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-cap: "Normality of Variables"
+#| label: Normality_of_variables_2 
+library(rstanarm)
+
+# Set up the plotting area for two plots side by side
+par(mfrow = c(1, 2)) 
+
+# QQ plot for timeCommitment 
+qqnorm(data$timeCommitment, main = "QQ Plot (TC)", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(data$timeCommitment, col = "red")
+
+# QQ plot for activity count 
+qqnorm(data$activityCount, main = "QQ Plot (AC)", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(data$studentInvolvement, col = "blue")
+
+# Reset the plotting layout to default (if needed for subsequent plots)
+par(mfrow = c(1, 1))
+
+```
+
+**Monotonic Association**:
+We confirmed that the relationship between these variables was monotonic, specifically increasing as seen in @scatter_plot_monotonic_activity
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Scatter Plot"
+#| label: scatter_plot_monotonic_activity
+# Load necessary libraries
+library(ggplot2)
+
+# Create a scatter plot
+ggplot(data, aes(x = timeCommitment, y = activityCount)) +
+  geom_point(color = "darkgreen") +                             # Set points to green
+  geom_smooth(method = "lm", color = "orange", se = FALSE) + # Set line to orange
+  ggtitle("Time Commitment and Activity Count") +
+  xlab("Time per week (hrs)") +
+  ylab("Number of Activities")
+
+
+```
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| tbl-cap: "Spearman Results"
+#| label: spear_corr_2
+
+# Load the necessary packages
+library(knitr)
+
+# Ensure data is defined and contains the necessary columns
+# Example: data <- data.frame(timeCommitment = ..., studentInvolvement = ...)
+
+# Perform Spearman's correlation test
+result <- cor.test(data$timeCommitment, data$activityCount, method = "spearman", exact = FALSE)
+
+# Extract relevant values
+p_value <- sprintf("%.3e", result$p.value)  # Format p-value in scientific notation
+rho <- sprintf("%.3f", result$estimate)     # Format rho to 3 decimal places
+
+# Create a data frame for the table
+table_results <- data.frame(
+  Statistic = c("Spearman Coefficient (rho)", "p-value"),
+  Value = c(rho, p_value)
+)
+
+# Display the table with basic kable (without additional styling)
+kable(table_results, caption = "Spearman's Rank Correlation Results")
+
+```
+
+**Results**:
+The test results show that the coefficient value is 0.9372, indicating a strong positive relationship. This would mean as time commitment increases, so does activity count. 
+The p-value is < 0.05 and indicates strong evidence against the null hypothesis, hence the relationship is unlikely due to chance. 
+
+Hence, these results indicate a strong, statistically significant monotonic relationship between time commitment and activity count. As students increase their time commitment, so does their participation in terms of involvement. 
 
 
 
