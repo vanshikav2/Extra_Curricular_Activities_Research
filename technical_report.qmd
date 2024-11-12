@@ -192,7 +192,7 @@ extracurricular activity.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Count of Students by Activity Type"
 #| label: r1
 data <- data %>% separate_rows(activityType, sep = ",") %>%
   separate_rows(major, sep = ",")
@@ -245,7 +245,7 @@ To test for Normality we used a Q-Q residuals plot.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Q-Q Residuals Plot"
 #| label: r2
 proportions_major <- data %>% group_by(major, activityType) %>%
   summarize(count = n(), .groups = "drop") %>%
@@ -274,7 +274,7 @@ between the groups are different.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Levene Test"
 #| label: r3
 library(car)
 library(knitr)
@@ -295,7 +295,7 @@ Proportion and their respective majors.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Anova"
 #| label: r4
 anova_summary <- summary(anova_major)[[1]]
 anova_df <- data.frame(anova_summary)
@@ -316,7 +316,7 @@ difference in activity participation across majors.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Boxplot on Major and Activity Proportion"
 #| label: r5
 ggplot(proportions_major, aes(x = major, y = proportion, fill = major)) + 
   geom_boxplot()+
@@ -352,7 +352,7 @@ the groups are different.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Shapiro-Wilk Test"
 #| label: r6
 ##GenderIdentity
 proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>%
@@ -360,7 +360,7 @@ proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>
   group_by(genderIdentity) %>%
   mutate(proportion = count / sum(count))
 
-proportions_genderIdentity %>% 
+proportions_genderIdentity <- proportions_genderIdentity %>% 
   group_by(genderIdentity) %>% 
   summarise(shapiro_p_value = shapiro.test(proportion)$p.value)
 
@@ -384,7 +384,7 @@ Levene Test.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Levene Test"
 #| label: r7
 Levene_gender <- leveneTest(proportion ~ genderIdentity, data = proportions_genderIdentity)
 
@@ -406,7 +406,7 @@ implemented both.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "T Test"
 #| label: r8
 
 t_test_result <- t.test(proportion ~ genderIdentity, data = proportions_genderIdentity, var.equal = TRUE)
@@ -422,7 +422,7 @@ kable(t_test_result_df, caption = "T-test on the cativity Proportion and GenderI
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Wilcox Test"
 #| label: r9
 wilcox_test_result <- wilcox.test(proportion ~ genderIdentity, data = proportions_genderIdentity, exact = FALSE)
 wilcox_test_result_df <- data.frame(W_statistic = wilcox_test_result$statistic, p_value = wilcox_test_result$p.value)
@@ -444,7 +444,7 @@ between Activity Type proportion and the gender.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Boxplot on Gender Identity and Activity Proportion"
 #| label: r10
 ggplot(proportions_genderIdentity, aes(x = genderIdentity, y = proportion, fill = genderIdentity)) + 
   geom_boxplot()+
@@ -463,7 +463,7 @@ as shown below.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Shapiro-Wilk Test"
 #| label: r11
 
 ##StudentStatus
@@ -484,7 +484,7 @@ kable(shapiro_studentStatus, caption = "Shapiro Test for StudentStatus")
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Levene Test"
 #| label: r12
 Levene_studentStatus <- leveneTest(proportion ~ studentStatus, data = proportions_studentStatus)
 Levene_studentStatus_df <- as.data.frame(Levene_studentStatus)
@@ -507,7 +507,7 @@ The results of our T-Test can be found below.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "T Test"
 #| label: r13
 t_test_result2 <- t.test(proportion ~ studentStatus, data = proportions_studentStatus, var.equal = TRUE)
 t_test_result_df2 <- data.frame(T_statistic = t_test_result2$statistic, Df = t_test_result2$parameter, p_value = t_test_result2$p.value, mean_group1 = t_test_result2$estimate[1], mean_group2 = t_test_result2$estimate[2])
@@ -526,7 +526,7 @@ Below is a Boxplot validating the results that we just proved,
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Analysis"
+#| tbl-cap: "Boxplot of Student Status and Activity Proportion"
 #| label: r14
 ggplot(proportions_studentStatus, aes(x = studentStatus, y = proportion, fill = studentStatus)) + 
   geom_boxplot()+
