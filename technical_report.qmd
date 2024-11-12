@@ -360,7 +360,7 @@ proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>
   group_by(genderIdentity) %>%
   mutate(proportion = count / sum(count))
 
-proportions_genderIdentity <- proportions_genderIdentity %>% 
+proportions_genderIdentity %>% 
   group_by(genderIdentity) %>% 
   summarise(shapiro_p_value = shapiro.test(proportion)$p.value)
 
