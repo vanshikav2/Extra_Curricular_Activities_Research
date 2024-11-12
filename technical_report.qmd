@@ -201,24 +201,11 @@ data <- data %>% mutate(activityType = trimws(data$activityType), major = trimws
 data <- data %>% mutate(across(c(genderIdentity, major,
                                  studentStatus, activityType), as.factor))
 
-#Observing the different levels of each demographic
-levels(data$genderIdentity)
-levels(data$studentStatus)
-levels(data$major)
-levels(data$activityType)
 #Finding the most preferred Extra Curricular Activity
 activityCount <- data %>% group_by(activityType) %>%
   summarize(count = n()) %>%
   arrange(desc(count))
-activityCount
-#Graph showing Activity counts
-ggplot(activityCount, aes(x = activityType, y = count)) +
-  geom_bar(stat = "identity", fill = "yellow") + 
-  labs(title = "Count of Students by Activity Type", x = "Activity Type", y = "Count") +
-  theme_minimal()
-activityCount <- data %>% group_by(activityType) %>%
-  summarize(count = n()) %>%
-  arrange(desc(count))
+
 #Graph showing Activity counts
 ggplot(activityCount, aes(x = activityType, y = count)) +
   geom_bar(stat = "identity", fill = "yellow") + 
@@ -240,7 +227,7 @@ we used two statistical tests, namely ANOVA and the T-Test.
 Before we began with our tests we first conducted preliminary Assumption
 Tests.
 
-## Testing for the Significance of Majors on Activity Proportion using the ANOVA Test
+### Testing for the Significance of Majors on Activity Proportion using the ANOVA Test
 
 The Assumptions of ANOVA are:
 
@@ -338,7 +325,7 @@ ggplot(proportions_major, aes(x = major, y = proportion, fill = major)) +
        y = "Proportion of Activity Participation") +
   theme_minimal()
 ```
-## Testing for the Significance of Gender on Activity Proportion using the T-Test
+### Testing for the Significance of Gender on Activity Proportion using the T-Test
 
 Before we begin with analysis, we must conduct preliminary tests to
 ensure that we are fit to use this test.
@@ -386,8 +373,8 @@ kable(shapiro_gender_df, caption = "Shapiro-Wilk Test Results for Gender Data")
 
 ```
 We conducted the Shapiro-Wilk Test to determine if the distribution in
-both groups is normal. The p-value is 0.0001064 which is less that the significance 
-level value of 0.05 indicating that the Genders are not normal.
+both groups is normal. The p-value is 0.651 which is greater than the significance 
+level value of 0.05 indicating that the Genders are normally distributed.
 
 To test the second Assumption of equality of variances we used the
 Levene Test.
@@ -400,7 +387,7 @@ Levene Test.
 #| tbl-cap: "Correlation Analysis"
 #| label: r7
 Levene_gender <- leveneTest(proportion ~ genderIdentity, data = proportions_genderIdentity)
-Levene_gender
+
 Levene_gender_df <- as.data.frame(Levene_gender)
 kable(Levene_gender_df, caption = "Levene Test on The Activity Proportion and Gender Identity")
 ```
@@ -466,7 +453,7 @@ ggplot(proportions_genderIdentity, aes(x = genderIdentity, y = proportion, fill 
        y = "Proportion of Activity Participation") +
   theme_minimal()
 ```
-## Testing for the Significance of Student Status on Activity Proportion using the T-Test
+### Testing for the Significance of Student Status on Activity Proportion using the T-Test
 
 We conducted preliminary tests before using the test and our results are
 as shown below.
@@ -548,7 +535,7 @@ ggplot(proportions_studentStatus, aes(x = studentStatus, y = proportion, fill = 
        y = "Proportion of Activity Participation") +
   theme_minimal()
 ```
-##Conclusion on Research Question 1 
+### Conclusion on Research Question 1 
 We can therefore conclude that
 indeed demographic factors have no significant effect on the preference
 for certain extracurricular activities. We also noted that the most
