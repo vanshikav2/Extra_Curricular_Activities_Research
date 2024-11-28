@@ -16,7 +16,7 @@ header-includes:
   - \usepackage{amsmath}
   - \usepackage{amssymb}
   - \usepackage{pgfplots}
-format: pdf
+format: html
 number-sections: true
 toc: true
 ---
@@ -238,11 +238,11 @@ ggplot(data = activity_counts, aes(x = activityType, y = Frequency, fill = activ
 
 ```
 
-According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with `r activity_counts$count[activity_counts$activityType == "AAS"]` and the least popular extracurricular activity is Academic Societies (ACS) with `r activity_counts$count[activity_counts$activityType == "ACS"]` students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.
+According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.
 
 To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used two statistical tests, namely ANOVA and the T-Test.
 
-Before we began with our tests we first conducted preliminary Assumption Tests.
+Before we began with our tests we first conducted preliminary assumption tests.
 
 ### Testing for the Significance of Majors on Activity Proportion using the ANOVA Test
 
@@ -268,19 +268,20 @@ To test for Normality we used a Q-Q residuals plot.
 data <- data %>% mutate(activityTypeNumeric = as.numeric(factor(activityType)))
 
 anova_major <- aov(activityTypeNumeric ~ major, data = data)
-summary(anova_major)
+#summary(anova_major)
 
 #Q-Q plot of Residuals
 residuals <- residuals(anova_major)
+
 qqnorm(residuals, col = "purple", main = "Q-Q Plot of Residuals for ANOVA Model
        for Major")
-qqline(residuals, col = "black", lwd = 1)
 
+qqline(residuals, col = "black", lwd = 1)
 ```
 
 From the plot we can observe that the points almost follow a straight a line indicating that the residuals are normally distributed.
 
-For the equality of variances within each group we used the Levene Test.
+To test the equality of variances within each group we used the Levene Test.
 
 ***Null Hypothesis*** ($H_{o}$) : The population variances between the groups are equal.
 
@@ -300,10 +301,13 @@ data <- data %>%
   mutate(major = as.factor(major))
 levene_test_major <- leveneTest(activityTypeNumeric ~ major, data = data)
 levene_df <- as.data.frame(levene_test_major)
+
+levene_df[is.na(levene_df)] <- ""
+
 kable(levene_df, caption = "Levene Test on The Activity Preference and Major")
 ```
 
-We found our p value to be `r levene_test_major$"Pr(>F)"[1]`, which is greater than the significance level value α = 0.05. This means we fail to reject the null hypothesis and conclude that the assumption of equal variances is not breached.
+We found that our F-statistc was 0.8865 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not signficantly different. Therefore our assumption of homogeneity of variances is satisfied.
 
 We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.
 
@@ -316,12 +320,13 @@ We then conducted the ANOVA Test to determine whether there are any significant 
 #| label: r4
 anova_summary <- summary(anova_major)[[1]]
 anova_df <- data.frame(anova_summary)
-kable(anova_df, caption = "Anova Test on The Activity Proportion and Major")
+anova_df[is.na(anova_df)] <- ""
+kable(anova_df, caption = "Anova Test on The Activity Preference and Major")
 ```
 
-From the ANOVA Analysis we can see that there is no statistical significant difference in the proportion of extracurricular activity participation across the different majors. The p- value of `r summary(anova_major)$"Pr(>F)"[1]` which is greater than the significance level α = 0.05, concluded that we would fail to reject the null hypothesis. The F-value of `r summary(anova_major)$"F value"[1]` also shows us that there is low variability between the group means.
+From the ANOVA Analysis we can see that the F-statistic was 0.8040 and a p-value of 0.5940. Since our p-value is greater than α = 0.05 we conclude that the differences in mean activity preferences across majors are not statistically significant meaning that we fail to reject the null hypothesis.
 
-The box plot below validates our results on that there is no significant difference in activity participation across majors.
+The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors 
 
 ```{r}
 #| echo: false
@@ -330,6 +335,14 @@ The box plot below validates our results on that there is no significant differe
 #| message: false
 #| tbl-cap: "Boxplot on Major and Activity Proportion"
 #| label: r5
+
+# Boxplot for Major Influence
+ggplot(data, aes(x = major, y = activityTypeNumeric, fill = major)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Major",
+       x = "Major",
+       y = "Activity Type (Numeric)") +
+  theme_minimal()
 
 ```
 
@@ -343,7 +356,9 @@ Assumptions of the T-test are:
 
 2\. Normality: The data in each group should be normally distributed.
 
-3.Equality of Variances - The variances in the two groups should be approximately equal. 4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the proportions of the people in each activity type) ***Null Hypothesis*** ($H_{o}$) : The population means between the groups are equal.
+3.Equality of Variances - The variances in the two groups should be approximately equal. 4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the proportions of the people in each activity type) 
+
+***Null Hypothesis*** ($H_{o}$) : The population means between the groups are equal.
 
 ***Alternative Hypothesis*** ($H_{1}$) : The population means between the groups are different.
 
@@ -352,28 +367,36 @@ Assumptions of the T-test are:
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Shapiro-Wilk Test"
+#| tbl-cap: "Shapiro-Wilk Tests"
 #| label: r6
 ##GenderIdentity
-proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>%
-  summarize(count = n(), .groups = "drop") %>%
-  group_by(genderIdentity) %>%
-  mutate(proportion = count / sum(count))
+gender_data_F <- data %>% filter(genderIdentity == "F") %>% pull(activityTypeNumeric)
+gender_data_M <- data %>% filter(genderIdentity == "M") %>% pull(activityTypeNumeric)
 
-invisible(proportions_genderIdentity %>% 
-  group_by(genderIdentity) %>% 
-  summarise(shapiro_p_value = shapiro.test(proportion)$p.value))
+data <- data %>%
+  mutate(genderIdentity = as.factor(genderIdentity))
+shapiro_F <- shapiro.test(gender_data_F)
+shapiro_M <- shapiro.test(gender_data_M)
 
-shapiro_gender <- shapiro.test(proportions_genderIdentity$proportion)
+shapiro_M_df <- as.data.frame(t(c(shapiro_M$statistic, shapiro_M$p.value)))
+colnames(shapiro_M_df) <- c("W statistic", "p-value")
+shapiro_F_df <- as.data.frame(t(c(shapiro_F$statistic, shapiro_F$p.value)))
+colnames(shapiro_F_df) <- c("W statistic", "p-value")
 
-shapiro_gender_df <- as.data.frame(t(c(shapiro_gender$statistic, shapiro_gender$p.value)))
-colnames(shapiro_gender_df) <- c("W statistic", "p-value")
 
-kable(shapiro_gender_df, caption = "Shapiro-Wilk Test Results for Gender Data")
+shapiro_results <- data.frame(
+  Gender = c("Males", "Females"),
+  `W Statistic` = c(shapiro_F_df$`W statistic`, shapiro_M_df$`W statistic`),
+  `p-value` = c(shapiro_F_df$`p-value`, shapiro_M_df$`p-value`)
+)
+
+kable(shapiro_results, col.names = c("Gender", "W Statistic", "p-value"),
+      caption = "Shapiro-Wilk Test Results for Gender Groups")
+
 
 ```
 
-We conducted the Shapiro-Wilk Test to determine if the distribution in both groups is normal. The p-value is 0.651 which is greater than the significance level value of 0.05 indicating that the Genders are normally distributed.
+We conducted the Shapiro-Wilk Test to determine if the distribution in both groups is normal. We were able to determine that both groups were not normal as both their p-values are below the significance level of 0.05. Showing that the normality is not satisfied for both groups.
 
 To test the second Assumption of equality of variances we used the Levene Test.
 
@@ -384,15 +407,18 @@ To test the second Assumption of equality of variances we used the Levene Test.
 #| message: false
 #| tbl-cap: "Levene Test"
 #| label: r7
-Levene_gender <- leveneTest(proportion ~ genderIdentity, data = proportions_genderIdentity)
 
-Levene_gender_df <- as.data.frame(Levene_gender)
-kable(Levene_gender_df, caption = "Levene Test on The Activity Proportion and Gender Identity")
+levene_gender <- leveneTest(activityTypeNumeric ~ genderIdentity, data = data)
+
+levene_gender_df <- as.data.frame(levene_gender)
+levene_gender_df[is.na(levene_gender_df)] <- ""
+
+kable(levene_gender_df, caption = "Levene Test on The Activity Preference and Gender Identity")
 ```
 
-Our results confirmed that the variances are equal as the p-value was 0.2146 which is greater than 0.05 confirming the Homogeneity of Variances property.
+With an F-statistic of 6.192 which is quite high indicating that there is a big difference between the two groups, we got a p-value of 0.0142 which is less than 0.05 suggesting that the variances in activity preferences between males and females are significantly different.
 
-Now to conduct our analysis of the significance of Gender Identity on activity proportion we opted to use both the t-test and the Wilcox Test to validate our results as we had noted above that the normality was violated hence why to have a confident answer we implemented both.
+Since our variances aren't equal and the normality assumption has also been violated we will conduct our significance test using the Welch t-Test.
 
 ```{r}
 #| echo: false
@@ -402,30 +428,20 @@ Now to conduct our analysis of the significance of Gender Identity on activity p
 #| tbl-cap: "T Test"
 #| label: r8
 
-t_test_result <- t.test(proportion ~ genderIdentity, data = proportions_genderIdentity, var.equal = TRUE)
+t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.equal = FALSE)
 
-t_test_result_df <- data.frame(T_statistic = t_test_result$statistic, Df = t_test_result$parameter, p_value = t_test_result$p.value, mean_group1 = t_test_result$estimate[1], mean_group2 = t_test_result$estimate[2])
+
+t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, DF = t_test_gender$parameter, p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
 
 kable(t_test_result_df, caption = "T-test on the cativity Proportion and GenderIdentity")
 
 ```
 
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| tbl-cap: "Wilcox Test"
-#| label: r9
-wilcox_test_result <- wilcox.test(proportion ~ genderIdentity, data = proportions_genderIdentity, exact = FALSE)
-wilcox_test_result_df <- data.frame(W_statistic = wilcox_test_result$statistic, p_value = wilcox_test_result$p.value)
+With a T-statistic of 0.8614, degress of freedom 0f 11.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
+Therefore Gender doesn't influence peoples extracurricular choices.
 
-kable(wilcox_test_result_df)
-```
 
-From both the tests we can see that the p-value is 1 which is greater than the significance level of 0.05 showing that there is no significant difference between Females and Males in the Activity Participation proportions. We therefore fail to reject the null hypothesis. We can also see that both the genders have an average of 0.2.
-
-Below, a box plot of the two genders has been plotted in order to validate the results that indeed there is no significant difference between Activity Type proportion and the gender.
+Aside from the overlapping of the boxplots they also have a almost similar medians further showing that there is no significant difference in activity preference between the two genders.
 
 ```{r}
 #| echo: false
@@ -434,11 +450,13 @@ Below, a box plot of the two genders has been plotted in order to validate the r
 #| message: false
 #| tbl-cap: "Boxplot on Gender Identity and Activity Proportion"
 #| label: r10
-ggplot(proportions_genderIdentity, aes(x = genderIdentity, y = proportion, fill = genderIdentity)) + 
-  geom_boxplot()+
-  labs(title = "Boxplot showing the Activity Proportions by Gender",
-       x = "Major", 
-       y = "Proportion of Activity Participation") +
+#| 
+# Boxplot for Gender Influence
+ggplot(data, aes(x = genderIdentity, y = activityTypeNumeric, fill = genderIdentity)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Gender",
+       x = "Gender Identity",
+       y = "Activity Type (Numeric)") +
   theme_minimal()
 ```
 
@@ -451,21 +469,24 @@ We conducted preliminary tests before using the test and our results are as show
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Shapiro-Wilk Test"
 #| label: r11
 
 ##StudentStatus
-proportions_studentStatus <- data %>% group_by(studentStatus, activityType) %>%
-  summarize(count = n(), .groups = "drop") %>%
-  group_by(studentStatus) %>%
-  mutate(proportion = count / sum(count))
+status_data_D <- data %>% filter(studentStatus == "D") %>% pull(activityTypeNumeric)
+status_data_I <- data %>% filter(studentStatus == "I") %>% pull(activityTypeNumeric)
 
-shapiro_studentStatus <- proportions_studentStatus %>% 
-  group_by(studentStatus) %>% 
-  summarise(shapiro_p_value = shapiro.test(proportion)$p.value)
-shapiro_studentStatus <- as.data.frame(shapiro_studentStatus)
+shapiro_D <- shapiro.test(status_data_D)
+shapiro_I <- shapiro.test(status_data_I)
 
-kable(shapiro_studentStatus, caption = "Shapiro Test for StudentStatus")
+shapiro_results <- data.frame(
+  StudentStatus = c("D", "I"),
+  W_Statistic = c(shapiro_D$statistic, shapiro_I$statistic),
+  P_Value = c(shapiro_D$p.value, shapiro_I$p.value)
+)
+kable(shapiro_results, caption = "Shapiro Test on studentStatus")
+
+
+
 ```
 
 ```{r}
@@ -475,16 +496,22 @@ kable(shapiro_studentStatus, caption = "Shapiro Test for StudentStatus")
 #| message: false
 #| tbl-cap: "Levene Test"
 #| label: r12
-Levene_studentStatus <- leveneTest(proportion ~ studentStatus, data = proportions_studentStatus)
-Levene_studentStatus_df <- as.data.frame(Levene_studentStatus)
-kable(Levene_studentStatus_df, caption = "Leven Test on studentStatus")
+
+data <- data %>%
+  mutate(studentStatus = as.factor(studentStatus))
+levene_status <- leveneTest(activityTypeNumeric ~ studentStatus, data = data)
+
+levene_status_df <- as.data.frame(levene_status)
+levene_status_df[is.na(levene_status_df)] <- ""
+
+kable(levene_status_df, caption = "Levene Test on studentStatus")
 ```
 
-From our results of the Shapiro-Wilk test we can conclude that our results are normal.This is because we can see that the p-value of domestic students(0.787) and international students(0.709) are both greater than 0.05 allowing us to reject the null hypothesis.
+From our results of the Shapiro-Wilk test we can conclude that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  α = 0.05 allowing us to reject the null hypothesis. 
 
-For the Homogeneity of Variances, due to the p value(0.9636) being greater than 0.05 we can conclude that the variances of the both the groups are relatively equal meaning that we fail to reject the null hypothesis.
+For an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should reject the fail to reject the null hypothesis. This means that there is no difference in variances of activity preferences between the student status groups. 
 
-The results of our T-Test can be found below.
+Since it failed the normality test, we opted to use the Wilcox test as the data isn't normally distributed.
 
 ```{r}
 #| echo: false
@@ -493,15 +520,23 @@ The results of our T-Test can be found below.
 #| message: false
 #| tbl-cap: "T Test"
 #| label: r13
-t_test_result2 <- t.test(proportion ~ studentStatus, data = proportions_studentStatus, var.equal = TRUE)
-t_test_result_df2 <- data.frame(T_statistic = t_test_result2$statistic, Df = t_test_result2$parameter, p_value = t_test_result2$p.value, mean_group1 = t_test_result2$estimate[1], mean_group2 = t_test_result2$estimate[2])
+#| 
+wilcox_test <- wilcox.test(activityTypeNumeric ~ studentStatus, data = data)
 
-kable(t_test_result_df2, caption = "T-test on the cativity Proportion and GenderIdentity")
+wilcox_test_df <- data.frame(
+  Statistic = wilcox_test$statistic,
+  P_Value = wilcox_test$p.value)
+
+kable(
+  wilcox_test_df,
+  col.names = c("W Statistic", "P-Value"),
+  caption = "Wilcoxon Rank-Sum Test Results for Activity Preferences by Student Status"
+)
 ```
 
-From the test a p-value of 1 is greater than the significance level of 0.05 which indicates that there is no difference between Domestic and International students in activity participation across the different activity types therefore rejecting the null hypothesis.
+From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
 
-Below is a Boxplot validating the results that we just proved,
+From the boxplot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the boxplots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
 ```{r}
 #| echo: false
@@ -510,17 +545,13 @@ Below is a Boxplot validating the results that we just proved,
 #| message: false
 #| tbl-cap: "Boxplot of Student Status and Activity Proportion"
 #| label: r14
-ggplot(proportions_studentStatus, aes(x = studentStatus, y = proportion, fill = studentStatus)) + 
-  geom_boxplot()+
-  labs(title = "Boxplot showing the Activity Proportions by studentStatus",
-       x = "Major", 
-       y = "Proportion of Activity Participation") +
+ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatus)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Student Status",
+       x = "Student Status",
+       y = "Activity Type (Numeric)") +
   theme_minimal()
 ```
-
-### Conclusion on Research Question 1
-
-We can therefore conclude that indeed demographic factors have no significant effect on the preference for certain extracurricular activities. We also noted that the most popular type of extracurricular activity amongst students was Athletics and Sports(AAS).
 
 ## Research Question 2
 
