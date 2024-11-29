@@ -240,7 +240,7 @@ ggplot(data = activity_counts, aes(x = activityType, y = Frequency, fill = activ
 
 According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.
 
-To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used two statistical tests, namely ANOVA and the T-Test.
+To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used three statistical tests, namely ANOVA, Welch-t-Test and the Wilcoxon rank-sum Test.
 
 Before we began with our tests we first conducted preliminary assumption tests.
 
@@ -279,7 +279,7 @@ qqnorm(residuals, col = "purple", main = "Q-Q Plot of Residuals for ANOVA Model
 qqline(residuals, col = "black", lwd = 1)
 ```
 
-From the plot we can observe that the points almost follow a straight a line indicating that the residuals are normally distributed.
+From the plot we can observe that the points almost follow a straight a line indicating that the residuals are approximately normally distributed.
 
 To test the equality of variances within each group we used the Levene Test.
 
@@ -304,10 +304,10 @@ levene_df <- as.data.frame(levene_test_major)
 
 levene_df[is.na(levene_df)] <- ""
 
-kable(levene_df, caption = "Levene Test on The Activity Preference and Major")
+kable(levene_df, caption = "Levene Test on The Activity Preference by Major")
 ```
 
-We found that our F-statistc was 0.8865 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not signficantly different. Therefore our assumption of homogeneity of variances is satisfied.
+For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.
 
 We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.
 
@@ -316,15 +316,15 @@ We then conducted the ANOVA Test to determine whether there are any significant 
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Anova"
+#| tbl-cap: "Anova Test of Activity Preference by Major"
 #| label: r4
 anova_summary <- summary(anova_major)[[1]]
 anova_df <- data.frame(anova_summary)
 anova_df[is.na(anova_df)] <- ""
-kable(anova_df, caption = "Anova Test on The Activity Preference and Major")
+kable(anova_df, caption = "Anova Test on The Activity Preference by Major")
 ```
 
-From the ANOVA Analysis we can see that the F-statistic was 0.8040 and a p-value of 0.5940. Since our p-value is greater than α = 0.05 we conclude that the differences in mean activity preferences across majors are not statistically significant meaning that we fail to reject the null hypothesis.
+After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.
 
 The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors 
 
@@ -336,12 +336,24 @@ The box plot below is a visual representation of the activity preferences across
 #| tbl-cap: "Boxplot on Major and Activity Proportion"
 #| label: r5
 
+activity_lbls <- c(
+  "1" = "ACS",  
+  "2" = "AAS",
+  "3" = "CLU",
+  "4" = "LSG",  
+  "5" = "NEC"   
+)
+
 # Boxplot for Major Influence
 ggplot(data, aes(x = major, y = activityTypeNumeric, fill = major)) +
   geom_boxplot() +
   labs(title = "Boxplot of Activity Preferences by Major",
        x = "Major",
-       y = "Activity Type (Numeric)") +
+       y = "Activity Type") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls
+  )+
   theme_minimal()
 
 ```
@@ -356,7 +368,9 @@ Assumptions of the T-test are:
 
 2\. Normality: The data in each group should be normally distributed.
 
-3.Equality of Variances - The variances in the two groups should be approximately equal. 4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the proportions of the people in each activity type) 
+3\\=.Equality of Variances - The variances in the two groups should be approximately equal. 
+
+4\. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the number of the people in each activity type) 
 
 ***Null Hypothesis*** ($H_{o}$) : The population means between the groups are equal.
 
@@ -367,7 +381,7 @@ Assumptions of the T-test are:
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Shapiro-Wilk Tests"
+#| tbl-cap: "Shapiro-Wilk Test on Gender Groups"
 #| label: r6
 ##GenderIdentity
 gender_data_F <- data %>% filter(genderIdentity == "F") %>% pull(activityTypeNumeric)
@@ -391,7 +405,7 @@ shapiro_results <- data.frame(
 )
 
 kable(shapiro_results, col.names = c("Gender", "W Statistic", "p-value"),
-      caption = "Shapiro-Wilk Test Results for Gender Groups")
+      caption = "Shapiro-Wilk Test Results for Activity Preferences by Gender Groups")
 
 
 ```
@@ -405,7 +419,7 @@ To test the second Assumption of equality of variances we used the Levene Test.
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Levene Test"
+#| tbl-cap: "Levene Test on Equality of Variances across Student Status Groups"
 #| label: r7
 
 levene_gender <- leveneTest(activityTypeNumeric ~ genderIdentity, data = data)
@@ -413,7 +427,7 @@ levene_gender <- leveneTest(activityTypeNumeric ~ genderIdentity, data = data)
 levene_gender_df <- as.data.frame(levene_gender)
 levene_gender_df[is.na(levene_gender_df)] <- ""
 
-kable(levene_gender_df, caption = "Levene Test on The Activity Preference and Gender Identity")
+kable(levene_gender_df, caption = "Levene Test for Equality of Variances in Activity Preferences by Gender Identity")
 ```
 
 With an F-statistic of 6.192 which is quite high indicating that there is a big difference between the two groups, we got a p-value of 0.0142 which is less than 0.05 suggesting that the variances in activity preferences between males and females are significantly different.
@@ -425,7 +439,7 @@ Since our variances aren't equal and the normality assumption has also been viol
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "T Test"
+#| tbl-cap: "Welch t-Test on Activity Proportion and GenderIdentity"
 #| label: r8
 
 t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.equal = FALSE)
@@ -433,22 +447,22 @@ t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.e
 
 t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, DF = t_test_gender$parameter, p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
 
-kable(t_test_result_df, caption = "T-test on the cativity Proportion and GenderIdentity")
+kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion by Gender")
 
 ```
 
-With a T-statistic of 0.8614, degress of freedom 0f 11.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
-Therefore Gender doesn't influence peoples extracurricular choices.
+With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
+Hence concluding that Gender doesn't influence peoples extracurricular choices.
 
 
-Aside from the overlapping of the boxplots they also have a almost similar medians further showing that there is no significant difference in activity preference between the two genders.
+Aside from the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Boxplot on Gender Identity and Activity Proportion"
+#| tbl-cap: "Boxplot on Gender Identity and Activity Preference"
 #| label: r10
 #| 
 # Boxplot for Gender Influence
@@ -457,6 +471,9 @@ ggplot(data, aes(x = genderIdentity, y = activityTypeNumeric, fill = genderIdent
   labs(title = "Boxplot of Activity Preferences by Gender",
        x = "Gender Identity",
        y = "Activity Type (Numeric)") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls)+
   theme_minimal()
 ```
 
@@ -494,7 +511,7 @@ kable(shapiro_results, caption = "Shapiro Test on studentStatus")
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Levene Test"
+#| tbl-cap: "Levene Test for Activity Preference and Student Status"
 #| label: r12
 
 data <- data %>%
@@ -507,18 +524,18 @@ levene_status_df[is.na(levene_status_df)] <- ""
 kable(levene_status_df, caption = "Levene Test on studentStatus")
 ```
 
-From our results of the Shapiro-Wilk test we can conclude that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  α = 0.05 allowing us to reject the null hypothesis. 
+From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  α = 0.05 allowing us to reject the null hypothesis. 
 
-For an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should reject the fail to reject the null hypothesis. This means that there is no difference in variances of activity preferences between the student status groups. 
+For the Levene Test, an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should fail to reject the null hypothesis meaning that there is no difference in variances of activity preferences between the student status groups. 
 
-Since it failed the normality test, we opted to use the Wilcox test as the data isn't normally distributed.
+Since it failed the normality test, we opted to use the Wilcox test.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "T Test"
+#| tbl-cap: "Wilcox Test of Activity Preference and Student Status"
 #| label: r13
 #| 
 wilcox_test <- wilcox.test(activityTypeNumeric ~ studentStatus, data = data)
@@ -536,20 +553,23 @@ kable(
 
 From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
 
-From the boxplot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the boxplots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
+From the box plot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Boxplot of Student Status and Activity Proportion"
+#| tbl-cap: "Boxplot of Student Status and Activity Preference"
 #| label: r14
 ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatus)) +
   geom_boxplot() +
   labs(title = "Boxplot of Activity Preferences by Student Status",
        x = "Student Status",
        y = "Activity Type (Numeric)") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls)+
   theme_minimal()
 ```
 

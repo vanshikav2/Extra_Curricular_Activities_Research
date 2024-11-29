@@ -259,7 +259,7 @@ window.Quarto = {
 </div>
 </div>
 <p>According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.</p>
-<p>To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used two statistical tests, namely ANOVA and the T-Test.</p>
+<p>To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used three statistical tests, namely ANOVA, Welch-t-Test and the Wilcoxon rank-sum Test.</p>
 <p>Before we began with our tests we first conducted preliminary assumption tests.</p>
 <section id="testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test"><span class="header-section-number">3.1.1</span> Testing for the Significance of Majors on Activity Proportion using the ANOVA Test</h3>
@@ -279,7 +279,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>From the plot we can observe that the points almost follow a straight a line indicating that the residuals are normally distributed.</p>
+<p>From the plot we can observe that the points almost follow a straight a line indicating that the residuals are approximately normally distributed.</p>
 <p>To test the equality of variances within each group we used the Levene Test.</p>
 <p><strong><em>Null Hypothesis</em></strong> (<span class="math inline">\(H_{o}\)</span>) : The population variances between the groups are equal.</p>
 <p><strong><em>Alternative Hypothesis</em></strong> (<span class="math inline">\(H_{1}\)</span>) : The population variances between the groups are different.</p>
@@ -312,12 +312,12 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>We found that our F-statistc was 0.8865 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not signficantly different. Therefore our assumption of homogeneity of variances is satisfied.</p>
+<p>For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.</p>
 <p>We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>Anova</caption>
+<caption>Anova Test of Activity Preference by Major</caption>
 <colgroup>
 <col style="width: 15%">
 <col style="width: 6%">
@@ -357,7 +357,7 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>From the ANOVA Analysis we can see that the F-statistic was 0.8040 and a p-value of 0.5940. Since our p-value is greater than α = 0.05 we conclude that the differences in mean activity preferences across majors are not statistically significant meaning that we fail to reject the null hypothesis.</p>
+<p>After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.</p>
 <p>The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors</p>
 <div class="cell" data-tbl-cap="Boxplot on Major and Activity Proportion">
 <div class="cell-output-display">
@@ -375,13 +375,14 @@ window.Quarto = {
 <p>Assumptions of the T-test are:</p>
 <p>1. Random Variables: The observations must be independent.(When sampling we took this into account)</p>
 <p>2. Normality: The data in each group should be normally distributed.</p>
-<p>3.Equality of Variances - The variances in the two groups should be approximately equal. 4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the proportions of the people in each activity type)</p>
+<p>3\=.Equality of Variances - The variances in the two groups should be approximately equal.</p>
+<p>4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the number of the people in each activity type)</p>
 <p><strong><em>Null Hypothesis</em></strong> (<span class="math inline">\(H_{o}\)</span>) : The population means between the groups are equal.</p>
 <p><strong><em>Alternative Hypothesis</em></strong> (<span class="math inline">\(H_{1}\)</span>) : The population means between the groups are different.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>Shapiro-Wilk Tests</caption>
+<caption>Shapiro-Wilk Test on Gender Groups</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Gender</th>
@@ -409,7 +410,7 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>Levene Test</caption>
+<caption>Levene Test on Equality of Variances across Student Status Groups</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -440,7 +441,7 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>T Test</caption>
+<caption>Welch t-Test on Activity Proportion and GenderIdentity</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -464,9 +465,9 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>With a T-statistic of 0.8614, degress of freedom 0f 11.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). Therefore Gender doesn’t influence peoples extracurricular choices.</p>
-<p>Aside from the overlapping of the boxplots they also have a almost similar medians further showing that there is no significant difference in activity preference between the two genders.</p>
-<div class="cell" data-tbl-cap="Boxplot on Gender Identity and Activity Proportion">
+<p>With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). Hence concluding that Gender doesn’t influence peoples extracurricular choices.</p>
+<p>Aside from the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.</p>
+<div class="cell" data-tbl-cap="Boxplot on Gender Identity and Activity Preference">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -508,7 +509,7 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>Levene Test</caption>
+<caption>Levene Test for Activity Preference and Student Status</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -534,13 +535,13 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>From our results of the Shapiro-Wilk test we can conclude that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than α = 0.05 allowing us to reject the null hypothesis.</p>
-<p>For an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should reject the fail to reject the null hypothesis. This means that there is no difference in variances of activity preferences between the student status groups.</p>
-<p>Since it failed the normality test, we opted to use the Wilcox test as the data isn’t normally distributed.</p>
+<p>From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than α = 0.05 allowing us to reject the null hypothesis.</p>
+<p>For the Levene Test, an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should fail to reject the null hypothesis meaning that there is no difference in variances of activity preferences between the student status groups.</p>
+<p>Since it failed the normality test, we opted to use the Wilcox test.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>T Test</caption>
+<caption>Wilcox Test of Activity Preference and Student Status</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -559,8 +560,8 @@ window.Quarto = {
 </div>
 </div>
 <p>From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.</p>
-<p>From the boxplot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the boxplots are overlapping, there is more spread of activity preferences for international students compared to domestic students.</p>
-<div class="cell" data-tbl-cap="Boxplot of Student Status and Activity Proportion">
+<p>From the box plot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.</p>
+<div class="cell" data-tbl-cap="Boxplot of Student Status and Activity Preference">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
