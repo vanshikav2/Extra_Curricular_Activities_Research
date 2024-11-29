@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 \usepackage{amssymb}
 \usepackage{pgfplots}
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -151,7 +151,7 @@ window.Quarto = {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    It is known that for students to have a well-rounded university experience, participation in extracurricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors and the diversity of student activities/clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third-year Statistics course to complete. Findings showed that there was no significant relationship between campus distance and program of study with extracurricular involvement. Although there was some gender influence on the participation of extra-curricular activity, this variation is not statistically relevant as the p-value was 1. On the other hand, there was a statistically significant monotonic relationship (rho = 0.937) between time commitment and activity count. As students increase their time commitment, so does their participation in ECAs. Although results produced minimal significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM.
+    It is known that for students to have a well-rounded university experience, participation in extracurricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors and the diversity of student activities/clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third-year Statistics course to complete. Findings showed that there was no significant relationship between campus distance and program of study with extracurricular involvement. Additionally, findings showed there was statistical significance between student status and activity preference (p=0.013). The findings also showed there was a statistically significant monotonic relationship (<span class="math inline">\(\rho\)</span> = 0.937) between time commitment and activity count. As students increase their time commitment, so does their participation in extracurricular activities (ECAs). Although results produced minimal significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM.
   </div>
 </div>
 
@@ -161,7 +161,7 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>An important part of having a healthy life in university is maintaining a balance between school, work, and social life. Among other aspects, a major part of many university students’ social lives is extracurricular activities (ECAs). Being such a major part of students’ social lives, determining what factors can negatively impact student participation in ECAs is a critical step in helping minimize negative impacts on students’ wellbeing. In our study, we focused on students in STA304 students in Fall of 2024 and examined their levels of participation in various kinds of ECA’s. In particular, we analyzed if various demographic factors affected students’ participation in ECAs. As UTM is primarily a commuter campus, of special interest was students living distance from campus. To conduct our study, during the first three weeks of October 2024 we distributed a survey on the STA304 Piazza Discussion board to collect data on student demographics factors and information relating to individual participation in ECAs. Our study consisted of three research questions.</p>
+<p>An important part of having a healthy life in university is maintaining a balance between school, work, and social life. Among other aspects, a major part of many university students’ social lives is extracurricular activities (ECAs). Being such a major part of students’ social lives, determining what factors can negatively impact student participation in ECAs is a critical step in helping minimize negative impacts on students’ wellbeing. In our study, we focused on students in STA304 students in Fall of 2024 and examined their levels of participation in various kinds of ECAs. In particular, we analyzed if various demographic factors affected students’ participation in ECAs. As UTM is primarily a commuter campus, of special interest was students living distance from campus. To conduct our study, during the first three weeks of October 2024 we distributed a survey on the STA304 Piazza Discussion board to collect data on student demographics factors and information relating to individual participation in ECAs. Our study consisted of three research questions.</p>
 <section id="research-questions-and-hypotheses" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="research-questions-and-hypotheses"><span class="header-section-number">1.1</span> Research Questions and Hypotheses</h2>
 <ol type="1">
@@ -187,34 +187,14 @@ window.Quarto = {
 <h1 data-number="2"><span class="header-section-number">2</span> Data</h1>
 <section id="methodology" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2.1</span> Methodology</h2>
-<p>Data collection began in the first three weeks of October 2024, an online anonymous survey on Google Forms was created for participants to complete. This survey was created in order to investigate the reasons that students select and participate in certain ECAs. This online survey was posted to a Piazza thread where students can easily locate the survey link. Although using Stratified Random Sampling where the strata were the STA304 lecture sections (ie. LEC0101 and LEC0102) was proposed, the sampling method that was truly used was Simple random sampling. Nevertheless, randomness was ensured as the link to the survey was posted to Piazza where everyone had the equal opportunity to complete the survey and be chosen for the study. We collected a sample of 63 students. The survey consisted of 10 questions asking for details on their lecture section, demographic information, program of study, and distance from the UTM campus. We also included questions on the number, types of activities and the time commitment of the ECAs they are involved in. To encourage students to complete our online survey, we asked participants to share a link to their group’s survey, which we would complete in return.</p>
-<p>For computing the sample size from population size of <span class="math inline">\(N = 200\)</span>, we chose a bound of <span class="math inline">\(B = 0.1047\)</span> and calculated with an approximation of <span class="math inline">\(p = 0.5\)</span>. Calculating a sample size using <span class="math inline">\(n = \frac{Npq}{(N-1)\frac{B^2}{4}+pq}\)</span> gives <span class="math inline">\(\frac{200*0.25*0.25}{(200-1)*\frac{0.1047^2}{4}+0.25} = 62.8643 \approx 63\)</span></p>
+<p>Data collection began in the first three weeks of October 2024, an online anonymous survey on Google Forms was created for participants to complete. This survey was created in order to investigate the reasons that students select and participate in certain ECAs. This online survey was posted to a Piazza thread where students can easily locate the survey link. Although using Stratified Random Sampling where the strata were the STA304 lecture sections (ie. LEC0101 and LEC0102) was proposed, the sampling method that was truly used was Simple random sampling. The stratified random sampling method was not used due to our oversight and the convenience of simple random sampling. Nevertheless, randomness was ensured as the link to the survey was posted to Piazza where everyone had the equal opportunity to complete the survey and be chosen for the study. We collected a sample of 63 students. The survey consisted of 10 questions asking for details on their lecture section, demographic information, program of study, and distance from the UTM campus. We also included questions on the number, types of activities and the time commitment of the ECAs they are involved in. To encourage students to complete our online survey, we asked participants to share a link to their group’s survey, which we would complete in return.</p>
+<p>We computed our sample size from a population of <span class="math inline">\(N = 200\)</span>, we chose a bound on the error of <span class="math inline">\(B = 0.1047\)</span> and calculated with an approximation of the sample proportion being <span class="math inline">\(p = 0.5\)</span>. Calculating a sample size using <span class="math inline">\(n = \frac{Npq}{(N-1)\frac{B^2}{4}+pq}\)</span> gives <span class="math inline">\(\frac{200*0.25*0.25}{(200-1)*\frac{0.1047^2}{4}+0.25} = 62.8643 \approx 63\)</span></p>
 </section>
 </section>
 <section id="sec-data1" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Analysis</h1>
-<p>The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions.</p>
-<p>We had a slightly higher response rate from students in LEC0101, approximately a 6:4 ratio.</p>
-<div class="cell" data-tbl-cap="Correlation Analysis">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="technical_report_files/figure-html/p1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Our sample indicated a higher percentage of males vs females, with no students responding with Other or Prefer Not to Answer</p>
-<div class="cell" data-tbl-cap="Correlation Analysis">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="technical_report_files/figure-html/p2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Students picked up to 2 majors, with STA seeing a significant share of responses.</p>
+<p>The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions. Overall we found a slightly higher response rate from students in LEC0101 (38 responses vs 25 in LEC0102) from a population with approximately equivalent sizes. Our sample also indicated a higher percentage of males vs females, approximately a 6:4 ratio.</p>
+<p>For gather students majors, they picked up to 2, with our sample showing a significant share of STA in the responses.</p>
 <div class="cell" data-tbl-cap="Correlation Analysis">
 <div class="cell-output-display">
 <div>
@@ -224,7 +204,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>We had almost an even balance of Domestic and International students in our responses.</p>
+<p>Our sample indicated an almost even split of Domestic vs International Students.</p>
 <div class="cell" data-tbl-cap="Correlation Analysis">
 <div class="cell-output-display">
 <div>
@@ -234,7 +214,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Finally, we recorded students living distance from campus.</p>
+<p>We recorded the distance students reported living from campus.</p>
 <div class="cell" data-tbl-cap="Correlation Analysis">
 <div class="cell-output-display">
 <div>
@@ -860,15 +840,11 @@ Figure&nbsp;5: Checking Monotonicity
 </section>
 <section id="sec-data3" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Limitations</h1>
-<p>This study aimed to understand the reasons why students select and participate in ECAs at UTM. Although our results did not yield significant findings, several limitations may have contributed to this outcome: One such notable limitation is the way in which our data was collected. Although we proposed Stratified Random Sampling to collect our data, we ended up collecting with Simple Random Sampling. This likely lead to higher variance in our analysis and as a result, weaker conclusions. Another big limitation is the possibility of non-response bias in our sampling. Although the survey was distributed in a way that made it available to all students, in effect if certain students we’re choosing not to respond to surveys, their chance of being selected would be zero. In future studies, a better sampling methodology would have been to use StRS with either SRS or Systematic Sampling within the strata. If the study were to be repeated, there would be a number of changes we would like to make in addition to modifying the sampling methodology. We would change the student major question from multiselect to a select one and instruct students to select the major they commit the most time to; this would allow us to streamline and simplify the analysis. The question regarding days of the week could likely be dropped as it proved unbeneficial. This question could be instead replaced with one regarding what time of day students spend most in ECAs. Finally, we would likely change the question regarding students living distance from campus to commute distance. Since the study is interested in what factors affect ECA participation, considering commute distance would be more likely to provide useful information, as two students living the same distance from campus could have vastly different commute times and thus have different amounts of time they can spend on ECAs.</p>
+<p>This study aimed to understand the reasons why students select and participate in ECAs at UTM. Although our results did not yield significant findings, several limitations may have contributed to this outcome: One such notable limitation is the way in which our data was collected. Although we proposed Stratified Random Sampling to collect our data, we ended up collecting with Simple Random Sampling. Stratified random sampling was not used due to our oversight and the simplicity of Simple random sampling method. This likely lead to higher variance in our analysis and as a result, weaker conclusions. In future studies, a better sampling methodology would have been to use StRS with either SRS or Systematic Sampling within the strata. If the study were to be repeated, there would be a number of changes we would like to make in addition to modifying the sampling methodology. We would change the student major question from multiselect to a select one and instruct students to select the major they commit the most time to; this would allow us to streamline and simplify the analysis. The question regarding days of the week could likely be dropped as it proved to be nonbeneficial. This question could be instead replaced with one regarding what time of day students spend most in ECAs. Finally, we would likely change the question regarding students living distance from campus to commute distance. Since the study is interested in what factors affect ECA participation, considering commute distance would be more likely to provide useful information, as two students living the same distance from campus could have vastly different commute times and thus have different amounts of time they can spend on ECAs.</p>
 </section>
 <section id="conclusion" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
-<p>This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga campus (UTM). Analysis on the preferred types of extracurricular activities whilst also examining whether demographic factors influence these preferences showed that although the most popular type of ECAs amongst students was Athletics and Sports, demographic factors such as gender, student status and program of study. Regarding, the proximity to campus and one’s ability to participate in ECAs, there indicated a very weak positive relationship between the distance from campus and the number of activities that students engage in. Unfortunately, this relationship is not statistically significant. Finally, analysis on the time spent on ECAs indicates that there is a strong statistically significant relationship between time commitment and activity count. Notably, in the future, it would be more beneficial to consider time commuting as a variable of interest than distance from campus. Additionally, modifying the sampling methodology would be an important change if this study were to be repeated by other researchers.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="references" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+<p>This study aimed to investigate the reasons that students select certain extracurricular activities at the University of Toronto Mississauga campus (UTM). Analysis on the preferred types of extracurricular activities whilst also examining whether demographic factors influence these preferences showed that although the most popular type of ECAs amongst students was Athletics and Sports, demographic factors such as gender, student status and program of study have no significant effect on the preference for certain ECAs. Regarding the proximity to campus and one’s ability to participate in ECAs, there indicated a very weak positive relationship between the distance from campus and the number of activities that students engage in. Unfortunately, this relationship is not statistically significant. Finally, analysis on the time spent on ECAs indicates that there is a strong statistically significant relationship between time commitment and activity count. Notably, in the future, it would be more beneficial to consider time commuting as a variable of interest than distance from campus. Additionally, modifying the sampling methodology would be an important change if this study were to be repeated by other researchers. </p>
 </section>
 
 </main>
@@ -951,7 +927,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -959,7 +957,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
