@@ -64,7 +64,6 @@ We computed our sample size from a population of $N = 200$, we chose a bound on 
 
 The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions. Overall we found a slightly higher response rate from students in LEC0101 (38 responses vs 25 in LEC0102) from a population with approximately equivalent sizes. Our sample also indicated a higher percentage of males vs females, approximately a 6:4 ratio. 
 
-
 For gather students majors, they picked up to 2, with our sample showing a significant share of STA in the responses.
 ```{r}
 #| echo: false
@@ -148,7 +147,6 @@ library(car)
 library(knitr)
 library(kableExtra)
 data <- read_csv("STA304_TheOutliers_CleanedData.csv")
-
 
 #Deleting the studentID column and replacing NA values
 data[is.na(data)] <- "NA"
@@ -401,7 +399,6 @@ Since our variances aren't equal and the normality assumption has also been viol
 #| label: r8
 
 t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.equal = FALSE)
-
 
 t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, DF = t_test_gender$parameter, p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
 
