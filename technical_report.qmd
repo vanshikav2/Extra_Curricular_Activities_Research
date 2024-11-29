@@ -15,12 +15,8 @@ header-includes:
   - \usepackage{amsmath}
   - \usepackage{amssymb}
   - \usepackage{pgfplots}
-<<<<<<< Updated upstream
-format: pdf
-=======
-abstract: "It is known that for students to have a well-rounded university experience, participation in extracurricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors and the diversity of student activities/clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third-year Statistics course to complete. Findings showed that there was no significant relationship between campus distance and program of study with extracurricular involvement. Although there was some gender influence on the participation of extra-curricular activity, this variation is not statistically relevant as the p-value was 1. On the other hand, there was a statistically significant monotonic relationship ($\\rho$ = 0.937) between time commitment and activity count. As students increase their time commitment, so does their participation in extracurricular activities (ECAs). Although results produced minimal significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM."
+abstract: "It is known that for students to have a well-rounded university experience, participation in extracurricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors and the diversity of student activities/clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third-year Statistics course to complete. Findings showed that there was no significant relationship between campus distance and program of study with extracurricular involvement. Additionally, findings showed there was statistical significance between student status and activity preference (p=0.013). The findings also showed there was a statistically significant monotonic relationship ($\\rho$ = 0.937) between time commitment and activity count. As students increase their time commitment, so does their participation in extracurricular activities (ECAs). Although results produced minimal significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM."
 format: html
->>>>>>> Stashed changes
 number-sections: true
 toc: true
 ---
@@ -40,29 +36,21 @@ data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 
 ```
 
-
 # Introduction
 
-<<<<<<< Updated upstream
-An important part of having a healthy life in university is maintaining a balance between school, work, and social life. Among other aspects, a major part of many university students’ social lives is extracurricular activities (ECAs). Being such a major part of students’ social lives, determining what factors can negatively impact student participation in ECAs is a critical step in helping minimize negative impacts on students’ wellbeing. 
-In our study, we focused on students in STA304 students in Fall of 2024 and examined their levels of participation in various kinds of ECA’s. In particular, we analyzed if various demographic factors affected students’ participation in ECAs. As UTM is primarily a commuter campus, of special interest was students living distance from campus.  To conduct our study, during the first three weeks of October 2024 we distributed a survey on the STA304 Piazza Discussion board to collect data on student demographics factors and information relating to individual participation in ECAs. Our study consisted of three research questions.
-=======
 An important part of having a healthy life in university is maintaining a balance between school, work, and social life. Among other aspects, a major part of many university students’ social lives is extracurricular activities (ECAs). Being such a major part of students’ social lives, determining what factors can negatively impact student participation in ECAs is a critical step in helping minimize negative impacts on students’ wellbeing. In our study, we focused on students in STA304 students in Fall of 2024 and examined their levels of participation in various kinds of ECAs. In particular, we analyzed if various demographic factors affected students’ participation in ECAs. As UTM is primarily a commuter campus, of special interest was students living distance from campus. To conduct our study, during the first three weeks of October 2024 we distributed a survey on the STA304 Piazza Discussion board to collect data on student demographics factors and information relating to individual participation in ECAs. Our study consisted of three research questions.
->>>>>>> Stashed changes
 
 ## Research Questions and Hypotheses
 
-1. **Research Question 1**: What is the most preferred type of extracurricular activity, and do demographic factors influence student preferences for certain extracurricular activities?  
-   - **$H_{0}$**: Student demographic factors have no effect on participation in extracurricular activities.
-   - **$H_{a}$**: Participation in extracurricular activities is affected by demographic factors.
-
-2. **Research Question 2**: Does proximity to campus affect participation in extracurricular activities?  
-   - **$H_{0}$**: Proximity to campus has no effect on participation in extracurricular activities.
-   - **$H_{a}$**: Students living further from campus will have lower participation rates.
-
-3. **Research Question 3**: Does timing/scheduling of extracurricular activities impact student participation in extracurricular activities?  
-   - **$H_{0}$**: Timing/scheduling of extracurricular activities has no impact on student participation.
-   - **$H_{a}$**: Participation in extracurricular activities is affected by their timing/scheduling.
+1.  **Research Question 1**: What is the most preferred type of extracurricular activity, and do demographic factors influence student preferences for certain extracurricular activities?
+    -   $H_{0}$: Student demographic factors have no effect on participation in extracurricular activities.
+    -   $H_{a}$: Participation in extracurricular activities is affected by demographic factors.
+2.  **Research Question 2**: Does proximity to campus affect participation in extracurricular activities?
+    -   $H_{0}$: Proximity to campus has no effect on participation in extracurricular activities.
+    -   $H_{a}$: Students living further from campus will have lower participation rates.
+3.  **Research Question 3**: Does timing/scheduling of extracurricular activities impact student participation in extracurricular activities?
+    -   $H_{0}$: Timing/scheduling of extracurricular activities has no impact on student participation.
+    -   $H_{a}$: Participation in extracurricular activities is affected by their timing/scheduling.
 
 # Data {#sec-data}
 
@@ -72,58 +60,10 @@ Data collection began in the first three weeks of October 2024, an online anonym
 
 We computed our sample size from a population of $N = 200$, we chose a bound on the error of $B = 0.1047$ and calculated with an approximation of the sample proportion being $p = 0.5$. Calculating a sample size using $n = \frac{Npq}{(N-1)\frac{B^2}{4}+pq}$ gives $\frac{200*0.25*0.25}{(200-1)*\frac{0.1047^2}{4}+0.25} = 62.8643 \approx 63$
 
+# Analysis {#sec-data1}
 
-<<<<<<< Updated upstream
-# Analysis{#sec-data1}
-The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions. 
-
-We had a slightly higher response rate from students in LEC0101, approximately a 6:4 ratio.
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| tbl-cap: "Correlation Analysis"
-#| label: p1
-library(treemapify)
-library(tidyverse)
-lecCounts=as.data.frame(table(data$lectureSection))
-lecLabs=c("LEC0101", "LEC0102")
-ggplot(data=lecCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + geom_treemap(color="black", size = 1.0) + 
-  labs(title="Sample Lecture Section Breakdown", x="Sample Size n = 63") +
-  theme_minimal() + 
-  scale_fill_brewer(name="Options", labels=lecLabs, palette = "Set2") + 
-  geom_treemap_text(colour="black", place="center") + 
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-
-Our sample indicated a higher percentage of males vs females, with no students responding with Other or Prefer Not to Answer
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| tbl-cap: "Correlation Analysis"
-#| label: p2
-all_genderIdents=c("M", "F", "O", "P")
-genderCounts=as.data.frame(table(factor(data$genderIdentity, levels= all_genderIdents)))
-gendLabs=c("Male", "Female", "Other", "Prefer Not To Say")
-ggplot(data=genderCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
-    geom_treemap(color="black", size=1.0) + 
-    labs(title="Sample Gender Identity Breakdown", x="Sample Size n = 63") + theme_minimal() + 
-    scale_fill_brewer(name="Options", labels=gendLabs, palette = "Set2") + 
-    geom_treemap_text(colour="black", place="center") + 
-    theme(plot.title = element_text(hjust = 0.5))
-
-```
-
-Students picked up to 2 majors, with STA seeing a significant share of responses.
-=======
 The majority of the analysis for our research questions is based on the various student demographic factors. As such, it is worthwhile to go over, in a preliminary fashion, the results of our survey to give further background on the study before continuing into the analysis of the research questions. Overall we found a slightly higher response rate from students in LEC0101 (38 responses vs 25 in LEC0102) from a population with approximately equivalent sizes. Our sample also indicated a higher percentage of males vs females, approximately a 6:4 ratio. 
 
->>>>>>> Stashed changes
 
 For gather students majors, they picked up to 2, with our sample showing a significant share of STA in the responses.
 ```{r}
@@ -147,12 +87,8 @@ ggplot(data=majDF, aes(x=Var1, y=Freq, fill=Var1)) +
   theme(plot.title = element_text(hjust = 0.5),
         axis.title.y = element_text(size=12, angle=90))
 ```
-<<<<<<< Updated upstream
-We had almost an even balance of Domestic and International students in our responses. 
-=======
 
 Our sample indicated an almost even split of Domestic vs International Students.
->>>>>>> Stashed changes
 ```{r}
 #| echo: false
 #| eval: true
@@ -171,12 +107,7 @@ ggplot(data=statusCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) +
 
 ```
 
-<<<<<<< Updated upstream
-Finally, we recorded students living distance from campus. 
-
-=======
 We recorded the distance students reported living from campus.
->>>>>>> Stashed changes
 ```{r}
 #| echo: false
 #| eval: true
@@ -197,22 +128,11 @@ ggplot(data=distanceDF, aes(area=Freq, fill=Var1, label=paste(Freq))) +
 
 ## Research Question 1
 
-In this question we aimed to explore and find out which is the most
-preferred types of extracurricular activities whilst also examining
-whether demographic factors such as major, demographics and student
-status influence the preference for certain extracurricular activities.
-By conducting this analysis we hope to gain an understanding of the
-sample and the wider population in their extracurricular selection
-habits.
+In this question we aimed to explore and find out which is the most preferred types of extracurricular activities whilst also examining whether demographic factors such as major, demographics and student status influence the preference for certain extracurricular activities. By conducting this analysis we hope to gain an understanding of the sample and the wider population in their extracurricular selection habits.
 
-**NOTE:** For easy analysis and ability to come up with clearer
-conclusions, the Major column and the activity column were split into
-different rows.
+**NOTE:** For easy analysis and ability to come up with clearer conclusions, the Major column and the activity column were split into different rows.
 
-For the most preferred type of extracurricular activity, we were able to
-get the count of students in the different extracurricular activities
-and display a graph showing the counts of students in each
-extracurricular activity.
+For the most preferred type of extracurricular activity, we were able to get the count of students in the different extracurricular activities and display a graph showing the counts of students in each extracurricular activity.
 
 ```{r}
 #| echo: false
@@ -220,10 +140,6 @@ extracurricular activity.
 #| warning: false
 #| message: false
 #| tbl-cap: "Count of Students by Activity Type"
-<<<<<<< Updated upstream
-#| label: r1
-data <- data %>% separate_rows(activityType, sep = ",") %>%
-=======
 #| label: rq1
 library(tidyverse)
 library(dplyr)
@@ -241,49 +157,58 @@ data <- data %>% select(-studentID, -lectureSection)
 #Split `activityType` and `major` into individual categories
 data <- data %>%
   separate_rows(activityType, sep = ",") %>%
->>>>>>> Stashed changes
   separate_rows(major, sep = ",")
-#Creating levels for the different data groups
-data <- data %>% mutate(activityType = trimws(data$activityType), major = trimws(major))
-data <- data %>% mutate(across(c(genderIdentity, major,
-                                 studentStatus, activityType), as.factor))
 
-#Finding the most preferred Extra Curricular Activity
-activityCount <- data %>% group_by(activityType) %>%
-  summarize(count = n()) %>%
-  arrange(desc(count))
+data <- data %>% mutate(activityType = trimws(data$activityType), major = trimws(data$major))
 
-#Graph showing Activity counts
-ggplot(activityCount, aes(x = activityType, y = count)) +
-  geom_bar(stat = "identity", fill = "yellow") + 
-  labs(title = "Count of Students by Activity Type", x = "Activity Type", y = "Count") +
-  theme_minimal()
+
+# Descriptive Analysis (What is the most preferred Extra Curricular Activity)
+data <- data %>% mutate(activityType = as.factor(activityType))
+activity_counts <- data %>%
+  count(activityType, name = "Frequency") %>%
+  arrange(desc(Frequency))
+
+# Plot distribution of activity types
+activity_labels <- c(
+  "AAS" = "Athletics and Sports",
+  "NEC" = "No Extracurricular Activities",
+  "CLU" = "Clubs",
+  "LSG" = "Leadership/Student Governments, Councils & Unions",
+  "ACS" = "Academic Societies"
+)
+
+#Graph Showing the Activity Counts
+ggplot(data = activity_counts, aes(x = activityType, y = Frequency, fill = activityType)) +
+  geom_bar(stat = "identity", color = "black") +
+  labs(
+    x = "Activity Type",
+    y = "Frequency",
+    title = "Distribution of Extracurricular Activity Types"
+  ) +
+  theme_light() +
+  scale_fill_brewer(
+    name = "Activity Options:",
+    labels = activity_labels,  
+    palette = "Set2"  
+  ) +
+  geom_text(aes(label = Frequency), vjust = -0.3, size = 4)
+
 
 ```
-According to the bar plot, the most popular extracurricular activity
-among students was Athletics and Sports (AAS) with 42 and the least
-popular extracurricular activity is Academic Societies (ACS). It was
-also particularly interesting to observe that most students do not
-participate in Extracurricular Activities, making the NEC category
-second in popularity.
 
-To investigate the proportion of students participating in each activity
-by demographic factors like Major, Student Status and Gender Identity,
-we used two statistical tests, namely ANOVA and the T-Test.
+According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.
 
-Before we began with our tests we first conducted preliminary Assumption
-Tests.
+To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used three statistical tests, namely ANOVA, Welch-t-Test and the Wilcoxon rank-sum Test.
+
+Before we began with our tests we first conducted preliminary assumption tests.
 
 ### Testing for the Significance of Majors on Activity Proportion using the ANOVA Test
 
 The Assumptions of ANOVA are:
 
 1.  Normality: The data within each group should be normally distributed
-2.  Homogeneity of Variances: The variance of data within each group
-    should be equal.
-3.  Random Sampling: Observations from each group have been sampled
-    randomly and are independent of each other. (When we were collecting
-    our sample this was already put into account)
+2.  Homogeneity of Variances: The variance of data within each group should be equal.
+3.  Random Sampling: Observations from each group have been sampled randomly and are independent of each other. (When we were collecting our sample this was already put into account)
 
 To test for Normality we used a Q-Q residuals plot.
 
@@ -294,27 +219,31 @@ To test for Normality we used a Q-Q residuals plot.
 #| message: false
 #| tbl-cap: "Q-Q Residuals Plot"
 #| label: r2
-proportions_major <- data %>% group_by(major, activityType) %>%
-  summarize(count = n(), .groups = "drop") %>%
-  group_by(major) %>%
-  mutate(proportion = count / sum(count))
+# -----------------------------
+# 2. ANOVA for Major
+# -----------------------------
+#Convert ActivityType to NumericValues
+data <- data %>% mutate(activityTypeNumeric = as.numeric(factor(activityType)))
+
+anova_major <- aov(activityTypeNumeric ~ major, data = data)
+#summary(anova_major)
+
 #Q-Q plot of Residuals
-anova_major <- aov(proportion ~ major, data = proportions_major)
 residuals <- residuals(anova_major)
+
 qqnorm(residuals, col = "purple", main = "Q-Q Plot of Residuals for ANOVA Model
        for Major")
+
 qqline(residuals, col = "black", lwd = 1)
 ```
-From the plot we can observe that the points almost follow a straight a
-line indicating that the residuals are normally distributed.
 
-For the equality of variances within each group we used the Levene Test.
+From the plot we can observe that the points almost follow a straight a line indicating that the residuals are approximately normally distributed.
 
-***Null Hypothesis*** ($H_{o}$) : The population variances between the
-groups are equal.
+To test the equality of variances within each group we used the Levene Test.
 
-***Alternative Hypothesis*** ($H_{1}$) : The population variances
-between the groups are different.
+***Null Hypothesis*** ($H_{o}$) : The population variances between the groups are equal.
+
+***Alternative Hypothesis*** ($H_{1}$) : The population variances between the groups are different.
 
 ```{r}
 #| echo: false
@@ -325,38 +254,37 @@ between the groups are different.
 #| label: r3
 library(car)
 library(knitr)
-levene_test <- leveneTest(proportion ~ major, data = proportions_major)
-levene_df <- as.data.frame(levene_test)
-kable(levene_df, caption = "Levene Test on The Proportion and Major")
-```
-We found our p value to be 0.373 which is greater than the significance
-level value α = 0.05. Meaning that we fail to reject the null hypothesis
-and conclude that the assumption of equal variances is not breached.
+##Testing for Homogenity of Variances
+data <- data %>%
+  mutate(major = as.factor(major))
+levene_test_major <- leveneTest(activityTypeNumeric ~ major, data = data)
+levene_df <- as.data.frame(levene_test_major)
 
-We then conducted the ANOVA Test to determine whether there are any
-significant differences in the mean proportions of student Activity
-Proportion and their respective majors.
+levene_df[is.na(levene_df)] <- ""
+
+kable(levene_df, caption = "Levene Test on The Activity Preference by Major")
+```
+
+For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.
+
+We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Anova"
+#| tbl-cap: "Anova Test of Activity Preference by Major"
 #| label: r4
 anova_summary <- summary(anova_major)[[1]]
 anova_df <- data.frame(anova_summary)
-kable(anova_df, caption = "Anova Test on The Activity Proportion and Major")
+anova_df[is.na(anova_df)] <- ""
+kable(anova_df, caption = "Anova Test on The Activity Preference by Major")
 ```
-From the ANOVA Analysis we can see that there is no statistical
-significant difference in the proportion of extracurricular activity
-participation across the different majors. The p- value of 0.668 which
-is greater than the significance level α = 0.05, concluded that we would
-fail to reject the null hypothesis. The F-value of 0.646 also shows us
-that there is low variability between the group means.
 
-The box plot below validates our results on that there is no significant
-difference in activity participation across majors.
+After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.
+
+The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors 
 
 ```{r}
 #| echo: false
@@ -365,240 +293,254 @@ difference in activity participation across majors.
 #| message: false
 #| tbl-cap: "Boxplot on Major and Activity Proportion"
 #| label: r5
-ggplot(proportions_major, aes(x = major, y = proportion, fill = major)) + 
-  geom_boxplot()+
-  labs(title = "Boxplot showing the Activity Proportions by Major",
-       x = "Major", 
-       y = "Proportion of Activity Participation") +
+
+activity_lbls <- c(
+  "1" = "ACS",  
+  "2" = "AAS",
+  "3" = "CLU",
+  "4" = "LSG",  
+  "5" = "NEC"   
+)
+
+# Boxplot for Major Influence
+ggplot(data, aes(x = major, y = activityTypeNumeric, fill = major)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Major",
+       x = "Major",
+       y = "Activity Type") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls
+  )+
   theme_minimal()
+
 ```
+
 ### Testing for the Significance of Gender on Activity Proportion using the T-Test
 
-Before we begin with analysis, we must conduct preliminary tests to
-ensure that we are fit to use this test.
+Before we begin with analysis, we must conduct preliminary tests to ensure that we are fit to use this test.
 
 Assumptions of the T-test are:
 
-1\. Random Variables: The observations must be independent.(When
-sampling we took this into account)
+1\. Random Variables: The observations must be independent.(When sampling we took this into account)
 
 2\. Normality: The data in each group should be normally distributed.
 
-3.Equality of Variances - The variances in the two groups should be
-approximately equal. 4. The dependent variable should be measured on an
-interval or ratio scale.(This has been met as our dependent variable is
-the proportions of the people in each activity type) ***Null
-Hypothesis*** ($H_{o}$) : The population means between the groups are
-equal.
+3\\=.Equality of Variances - The variances in the two groups should be approximately equal. 
 
-***Alternative Hypothesis*** ($H_{1}$) : The population means between
-the groups are different.
+4\. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the number of the people in each activity type) 
+
+***Null Hypothesis*** ($H_{o}$) : The population means between the groups are equal.
+
+***Alternative Hypothesis*** ($H_{1}$) : The population means between the groups are different.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Shapiro-Wilk Test"
+#| tbl-cap: "Shapiro-Wilk Test on Gender Groups"
 #| label: r6
 ##GenderIdentity
-proportions_genderIdentity <- data %>% group_by(genderIdentity, activityType) %>%
-  summarize(count = n(), .groups = "drop") %>%
-  group_by(genderIdentity) %>%
-  mutate(proportion = count / sum(count))
+gender_data_F <- data %>% filter(genderIdentity == "F") %>% pull(activityTypeNumeric)
+gender_data_M <- data %>% filter(genderIdentity == "M") %>% pull(activityTypeNumeric)
 
-invisible(proportions_genderIdentity %>% 
-  group_by(genderIdentity) %>% 
-  summarise(shapiro_p_value = shapiro.test(proportion)$p.value))
+data <- data %>%
+  mutate(genderIdentity = as.factor(genderIdentity))
+shapiro_F <- shapiro.test(gender_data_F)
+shapiro_M <- shapiro.test(gender_data_M)
 
-shapiro_gender <- shapiro.test(proportions_genderIdentity$proportion)
+shapiro_M_df <- as.data.frame(t(c(shapiro_M$statistic, shapiro_M$p.value)))
+colnames(shapiro_M_df) <- c("W statistic", "p-value")
+shapiro_F_df <- as.data.frame(t(c(shapiro_F$statistic, shapiro_F$p.value)))
+colnames(shapiro_F_df) <- c("W statistic", "p-value")
 
-shapiro_gender_df <- as.data.frame(t(c(shapiro_gender$statistic, shapiro_gender$p.value)))
-colnames(shapiro_gender_df) <- c("W statistic", "p-value")
 
-kable(shapiro_gender_df, caption = "Shapiro-Wilk Test Results for Gender Data")
+shapiro_results <- data.frame(
+  Gender = c("Males", "Females"),
+  `W Statistic` = c(shapiro_F_df$`W statistic`, shapiro_M_df$`W statistic`),
+  `p-value` = c(shapiro_F_df$`p-value`, shapiro_M_df$`p-value`)
+)
+
+kable(shapiro_results, col.names = c("Gender", "W Statistic", "p-value"),
+      caption = "Shapiro-Wilk Test Results for Activity Preferences by Gender Groups")
+
 
 ```
-We conducted the Shapiro-Wilk Test to determine if the distribution in
-both groups is normal. The p-value is 0.651 which is greater than the significance 
-level value of 0.05 indicating that the Genders are normally distributed.
 
-To test the second Assumption of equality of variances we used the
-Levene Test.
+We conducted the Shapiro-Wilk Test to determine if the distribution in both groups is normal. We were able to determine that both groups were not normal as both their p-values are below the significance level of 0.05. Showing that the normality is not satisfied for both groups.
+
+To test the second Assumption of equality of variances we used the Levene Test.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Levene Test"
+#| tbl-cap: "Levene Test on Equality of Variances across Student Status Groups"
 #| label: r7
-Levene_gender <- leveneTest(proportion ~ genderIdentity, data = proportions_genderIdentity)
 
-Levene_gender_df <- as.data.frame(Levene_gender)
-kable(Levene_gender_df, caption = "Levene Test on The Activity Proportion and Gender Identity")
+levene_gender <- leveneTest(activityTypeNumeric ~ genderIdentity, data = data)
+
+levene_gender_df <- as.data.frame(levene_gender)
+levene_gender_df[is.na(levene_gender_df)] <- ""
+
+kable(levene_gender_df, caption = "Levene Test for Equality of Variances in Activity Preferences by Gender Identity")
 ```
-Our results confirmed that the variances are equal as the p-value was
-0.2146 which is greater than 0.05 confirming the Homogeneity of
-Variances property.
 
-Now to conduct our analysis of the significance of Gender Identity on
-activity proportion we opted to use both the t-test and the Wilcox Test
-to validate our results as we had noted above that the normality was 
-violated hence why to have a confident answer we
-implemented both.
+With an F-statistic of 6.192 which is quite high indicating that there is a big difference between the two groups, we got a p-value of 0.0142 which is less than 0.05 suggesting that the variances in activity preferences between males and females are significantly different.
+
+Since our variances aren't equal and the normality assumption has also been violated we will conduct our significance test using the Welch t-Test.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "T Test"
+#| tbl-cap: "Welch t-Test on Activity Proportion and GenderIdentity"
 #| label: r8
 
-t_test_result <- t.test(proportion ~ genderIdentity, data = proportions_genderIdentity, var.equal = TRUE)
+t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.equal = FALSE)
 
-t_test_result_df <- data.frame(T_statistic = t_test_result$statistic, Df = t_test_result$parameter, p_value = t_test_result$p.value, mean_group1 = t_test_result$estimate[1], mean_group2 = t_test_result$estimate[2])
 
-kable(t_test_result_df, caption = "T-test on the cativity Proportion and GenderIdentity")
+t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, DF = t_test_gender$parameter, p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
+
+kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion by Gender")
 
 ```
+
+With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
+Hence concluding that Gender doesn't influence peoples extracurricular choices.
+
+
+Aside from the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Wilcox Test"
-#| label: r9
-wilcox_test_result <- wilcox.test(proportion ~ genderIdentity, data = proportions_genderIdentity, exact = FALSE)
-wilcox_test_result_df <- data.frame(W_statistic = wilcox_test_result$statistic, p_value = wilcox_test_result$p.value)
-
-kable(wilcox_test_result_df)
-```
-From both the tests we can see that the p-value is 1 which is greater
-than the significance level of 0.05 showing that there is no significant
-difference between Females and Males in the Activity Participation
-proportions. We therefore fail to reject the null hypothesis. We can
-also see that both the genders have an average of 0.2.
-
-Below, a box plot of the two genders has been plotted in order to
-validate the results that indeed there is no significant difference
-between Activity Type proportion and the gender.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| tbl-cap: "Boxplot on Gender Identity and Activity Proportion"
+#| tbl-cap: "Boxplot on Gender Identity and Activity Preference"
 #| label: r10
-ggplot(proportions_genderIdentity, aes(x = genderIdentity, y = proportion, fill = genderIdentity)) + 
-  geom_boxplot()+
-  labs(title = "Boxplot showing the Activity Proportions by Gender",
-       x = "Major", 
-       y = "Proportion of Activity Participation") +
+#| 
+# Boxplot for Gender Influence
+ggplot(data, aes(x = genderIdentity, y = activityTypeNumeric, fill = genderIdentity)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Gender",
+       x = "Gender Identity",
+       y = "Activity Type (Numeric)") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls)+
   theme_minimal()
 ```
+
 ### Testing for the Significance of Student Status on Activity Proportion using the T-Test
 
-We conducted preliminary tests before using the test and our results are
-as shown below.
+We conducted preliminary tests before using the test and our results are as shown below.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Shapiro-Wilk Test"
 #| label: r11
 
 ##StudentStatus
-proportions_studentStatus <- data %>% group_by(studentStatus, activityType) %>%
-  summarize(count = n(), .groups = "drop") %>%
-  group_by(studentStatus) %>%
-  mutate(proportion = count / sum(count))
+status_data_D <- data %>% filter(studentStatus == "D") %>% pull(activityTypeNumeric)
+status_data_I <- data %>% filter(studentStatus == "I") %>% pull(activityTypeNumeric)
 
-shapiro_studentStatus <- proportions_studentStatus %>% 
-  group_by(studentStatus) %>% 
-  summarise(shapiro_p_value = shapiro.test(proportion)$p.value)
-shapiro_studentStatus <- as.data.frame(shapiro_studentStatus)
+shapiro_D <- shapiro.test(status_data_D)
+shapiro_I <- shapiro.test(status_data_I)
 
-kable(shapiro_studentStatus, caption = "Shapiro Test for StudentStatus")
+shapiro_results <- data.frame(
+  StudentStatus = c("D", "I"),
+  W_Statistic = c(shapiro_D$statistic, shapiro_I$statistic),
+  P_Value = c(shapiro_D$p.value, shapiro_I$p.value)
+)
+kable(shapiro_results, caption = "Shapiro Test on studentStatus")
+
+
+
 ```
+
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Levene Test"
+#| tbl-cap: "Levene Test for Activity Preference and Student Status"
 #| label: r12
-Levene_studentStatus <- leveneTest(proportion ~ studentStatus, data = proportions_studentStatus)
-Levene_studentStatus_df <- as.data.frame(Levene_studentStatus)
-kable(Levene_studentStatus_df, caption = "Leven Test on studentStatus")
+
+data <- data %>%
+  mutate(studentStatus = as.factor(studentStatus))
+levene_status <- leveneTest(activityTypeNumeric ~ studentStatus, data = data)
+
+levene_status_df <- as.data.frame(levene_status)
+levene_status_df[is.na(levene_status_df)] <- ""
+
+kable(levene_status_df, caption = "Levene Test on studentStatus")
 ```
-From our results of the Shapiro-Wilk test we can conclude that our
-results are normal.This is because we can see that the p-value of
-domestic students(0.787) and international students(0.709) are both
-greater than 0.05 allowing us to reject the null hypothesis.
 
-For the Homogeneity of Variances, due to the p value(0.9636) being
-greater than 0.05 we can conclude that the variances of the both the
-groups are relatively equal meaning that we fail to reject the null
-hypothesis.
+From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  α = 0.05 allowing us to reject the null hypothesis. 
 
-The results of our T-Test can be found below.
+For the Levene Test, an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should fail to reject the null hypothesis meaning that there is no difference in variances of activity preferences between the student status groups. 
+
+Since it failed the normality test, we opted to use the Wilcox test.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "T Test"
+#| tbl-cap: "Wilcox Test of Activity Preference and Student Status"
 #| label: r13
-t_test_result2 <- t.test(proportion ~ studentStatus, data = proportions_studentStatus, var.equal = TRUE)
-t_test_result_df2 <- data.frame(T_statistic = t_test_result2$statistic, Df = t_test_result2$parameter, p_value = t_test_result2$p.value, mean_group1 = t_test_result2$estimate[1], mean_group2 = t_test_result2$estimate[2])
+#| 
+wilcox_test <- wilcox.test(activityTypeNumeric ~ studentStatus, data = data)
 
-kable(t_test_result_df2, caption = "T-test on the cativity Proportion and GenderIdentity")
+wilcox_test_df <- data.frame(
+  Statistic = wilcox_test$statistic,
+  P_Value = wilcox_test$p.value)
+
+kable(
+  wilcox_test_df,
+  col.names = c("W Statistic", "P-Value"),
+  caption = "Wilcoxon Rank-Sum Test Results for Activity Preferences by Student Status"
+)
 ```
-From the test a p-value of 1 is greater than the significance level of
-0.05 which indicates that there is no difference between Domestic and
-International students in activity participation across the different
-activity types therefore rejecting the null hypothesis.
 
-Below is a Boxplot validating the results that we just proved,
+From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
+
+From the box plot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Boxplot of Student Status and Activity Proportion"
+#| tbl-cap: "Boxplot of Student Status and Activity Preference"
 #| label: r14
-ggplot(proportions_studentStatus, aes(x = studentStatus, y = proportion, fill = studentStatus)) + 
-  geom_boxplot()+
-  labs(title = "Boxplot showing the Activity Proportions by studentStatus",
-       x = "Major", 
-       y = "Proportion of Activity Participation") +
+ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatus)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Student Status",
+       x = "Student Status",
+       y = "Activity Type (Numeric)") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls)+
   theme_minimal()
 ```
-### Conclusion on Research Question 1 
-We can therefore conclude that
-indeed demographic factors have no significant effect on the preference
-for certain extracurricular activities. We also noted that the most
-popular type of extracurricular activity amongst students was Athletics
-and Sports(AAS).
-
 
 ## Research Question 2
-In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities. 
 
-+ Null Hypothesis ($H_{o}$): Proximity to campus (campusDistance) does not affect participation in extracurricular activities.
-+ Alternative Hypothesis ($H_{1}$): Proximity to campus (campusDistance) has an effect on participation in extracurricular activities.
+In RQ2, we analysed if the proximity to campus affects one’s ability to participate in extracurricular activities.
+
+-   Null Hypothesis ($H_{o}$): Proximity to campus (campusDistance) does not affect participation in extracurricular activities.
+-   Alternative Hypothesis ($H_{1}$): Proximity to campus (campusDistance) has an effect on participation in extracurricular activities.
 
 ### Campus Distance and Activity Count
-Statistical Test:
-To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we will verify the assumptions for the test first.
+
+Statistical Test: To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we will verify the assumptions for the test first.
 
 ```{r}
 #| echo: false
@@ -624,8 +566,8 @@ library(knitr)
 
 kable(summary_t, format = "pipe", col.names = c("Statistic", "CampusDistance", "ActivityCount"))
 ```
-The descriptive statistics suggest that most students live fairly close to campus (within 2-3 units) and participate in 1-2 extracurricular activities. This variability in both campusDistance and activityCount supports further analysis to see if there’s a relationship between proximity and participation.
 
+The descriptive statistics suggest that most students live fairly close to campus (within 2-3 units) and participate in 1-2 extracurricular activities. This variability in both campusDistance and activityCount supports further analysis to see if there’s a relationship between proximity and participation.
 
 ```{r}
 #| echo: false
@@ -646,6 +588,7 @@ ggplot(data, aes(x = campusDistance, y = activityCount)) +
        y = "Activity Count")
 
 ```
+
 Moving on we inspect the relationship between the variables. As it can be seen from @fig-plot1, there seems to be no linear relation between the variables.
 
 ```{r}
@@ -683,8 +626,7 @@ plot(model, which = 1)
 
 This plot helps in identifying any non-linearity, unequal variance (heteroscedasticity), or outliers. Here, residuals seem randomly scattered around the fitted line with no obvious pattern, suggesting homoscedasticity (constant variance). However, a few points like 33, 9, and 15 appear as potential outliers, which might influence the results.
 
-
-Since there is non-normality between these  variables, we proceed with Spearman's rank correlation to analyze the association between campus distance and activity count. 
+Since there is non-normality between these variables, we proceed with Spearman's rank correlation to analyze the association between campus distance and activity count.
 
 ```{r}
 #| echo: false
@@ -706,29 +648,28 @@ correlation_results <- data.frame(
 kable(correlation_results, caption = "Summary of Correlation Test Results")
 
 ```
+
 The Spearman's rank correlation test results are as follows:
 
-- Spearman correlation coefficient: 0.025
-- p-value: 0.847
+-   Spearman correlation coefficient: 0.025
+-   p-value: 0.847
 
-This result indicates a very weak positive correlation between `campusDistance` and `activityCount`, but it is not statistically significant (p-value > 0.05). Therefore, we fail to reject the null hypothesis, suggesting no significant association between proximity to campus and participation in extracurricular activities based on this data.
+This result indicates a very weak positive correlation between `campusDistance` and `activityCount`, but it is not statistically significant (p-value \> 0.05). Therefore, we fail to reject the null hypothesis, suggesting no significant association between proximity to campus and participation in extracurricular activities based on this data.
 
 ## Research Question 3
-In RQ3, we analyzed if the the timing, the time spent on extra curricular activity affected one’s level of participation in extracurricular activities. 
 
-+ Null Hypothesis ($H_{o}$): Time Commitment (timeCommitment) does not affect participation levels in extracurricular activities.
-+ Alternative Hypothesis ($H_{1}$): Time Commitment (timeCommitment) has an effect on participation levels in extracurricular activities. 
+In RQ3, we analyzed if the the timing, the time spent on extra curricular activity affected one’s level of participation in extracurricular activities.
 
-We used the variables of student involvement (studentInvolvement) and activity count (activityCount) to represent the participation levels. 
+-   Null Hypothesis ($H_{o}$): Time Commitment (timeCommitment) does not affect participation levels in extracurricular activities.
+-   Alternative Hypothesis ($H_{1}$): Time Commitment (timeCommitment) has an effect on participation levels in extracurricular activities.
 
-### Time Commitment and Student Involvement 
-**Statistical Test**: 
-To evaluate this, we used the correlation analysis test between time commitment and student involvement variables using Spearman’s correlation test. Before proceeding with the test, we will verify the assumptions for the test. 
+We used the variables of student involvement (studentInvolvement) and activity count (activityCount) to represent the participation levels.
 
-**Normality of Variables**:
-In our exploration we found that the variables of timeCommitment (TC), and studentInvolvement (SI) are not normally distributed as seen by the QQ plots in @fig-normality-of-variables as they deviate from the normality line.
-Hence we proceeded to apply the correlation test using the Spearman's rank coefficient instead of Pearson's coefficient (requiring normality).
+### Time Commitment and Student Involvement
 
+**Statistical Test**: To evaluate this, we used the correlation analysis test between time commitment and student involvement variables using Spearman’s correlation test. Before proceeding with the test, we will verify the assumptions for the test.
+
+**Normality of Variables**: In our exploration we found that the variables of timeCommitment (TC), and studentInvolvement (SI) are not normally distributed as seen by the QQ plots in @fig-normality-of-variables as they deviate from the normality line. Hence we proceeded to apply the correlation test using the Spearman's rank coefficient instead of Pearson's coefficient (requiring normality).
 
 ```{r}
 #| echo: false
@@ -755,9 +696,8 @@ par(mfrow = c(1, 1))
 
 ```
 
-**Monotonic Association**:
-Next we confirmed the assumption of Spearman's rank coefficient test requiring a monotonic relationship between the variables (timeCommitment and studentInvovlement).
-We found that the relationship between these variables was monotonic, specifically increasing as seen in @fig-scatter-plot-involvement.  
+**Monotonic Association**: Next we confirmed the assumption of Spearman's rank coefficient test requiring a monotonic relationship between the variables (timeCommitment and studentInvovlement). We found that the relationship between these variables was monotonic, specifically increasing as seen in @fig-scatter-plot-involvement.
+
 ```{r}
 #| echo: false
 #| eval: true
@@ -779,8 +719,8 @@ ggplot(data, aes(x = timeCommitment, y = studentInvolvement)) +
 
 ```
 
-**Results**: 
-As seen in @tbl-spear-corr, the Spearman's rank correlation coefficient is 0.808, which indicates a strong positive correlation, pointing to a significant monotonic relationship between timeCommitment and studentInvolvement. p-value is < 0.05, hence the correlation is statistically significant, and we can reject the null-hypothesis.
+**Results**: As seen in @tbl-spear-corr, the Spearman's rank correlation coefficient is 0.808, which indicates a strong positive correlation, pointing to a significant monotonic relationship between timeCommitment and studentInvolvement. p-value is \< 0.05, hence the correlation is statistically significant, and we can reject the null-hypothesis.
+
 ```{r}
 #| echo: false
 #| eval: true
@@ -813,20 +753,20 @@ kable(table_results, caption = "Spearman's Rank Correlation Results")
 
 ```
 
-Hence students who spend more time in the activities have higher participation in extra curricular activities measured by the activity count, as suggested by the strong association based on our data. 
+Hence students who spend more time in the activities have higher participation in extra curricular activities measured by the activity count, as suggested by the strong association based on our data.
 
+### Time Commitment and Activity Count
 
-### Time Commitment and Activity Count 
-
-We wanted to check whether the time commitment and participation measured by the activityCount variable were correlated. 
+We wanted to check whether the time commitment and participation measured by the activityCount variable were correlated.
 
 **Statistical Test**:
 
-As discussed before, both the timeCommitment and activityCount variables did not meet normality assumptions, so we proceed with the Spearman's rank correlation coefficient as our statistical test. 
+As discussed before, both the timeCommitment and activityCount variables did not meet normality assumptions, so we proceed with the Spearman's rank correlation coefficient as our statistical test.
 
 **Normality of Variables**:
 
 To proceed with this test, we used QQ-plots to verify normality of timeCommitment (TC) and activityCount(AC). As seen in @fig-normality-activity they are non-normal variables due to their deviation from the normal line.
+
 ```{r}
 #| echo: false
 #| eval: true
@@ -852,8 +792,8 @@ par(mfrow = c(1, 1))
 
 ```
 
-**Monotonic Association**:
-We confirmed that the relationship between these variables was monotonic, specifically increasing as seen in @fig-monotonic-activity 
+**Monotonic Association**: We confirmed that the relationship between these variables was monotonic, specifically increasing as seen in @fig-monotonic-activity
+
 ```{r}
 #| label: fig-monotonic-activity
 #| echo: false
@@ -908,41 +848,17 @@ kable(table_results, caption = "Spearman's Rank Correlation Results")
 
 ```
 
-**Results**:
-The test results show that the coefficient value is 0.937, indicating a strong positive relationship. This would mean as time commitment increases, so does activity count. 
-The p-value is < 0.05 and indicates strong evidence against the null hypothesis, hence the relationship is unlikely due to chance. 
+**Results**: The test results show that the coefficient value is 0.937, indicating a strong positive relationship. This would mean as time commitment increases, so does activity count. The p-value is \< 0.05 and indicates strong evidence against the null hypothesis, hence the relationship is unlikely due to chance.
 
-Hence, these results indicate a strong, statistically significant monotonic relationship between time commitment and activity count. As students increase their time commitment, so does their participation measured by involvement. 
+Hence, these results indicate a strong, statistically significant monotonic relationship between time commitment and activity count. As students increase their time commitment, so does their participation measured by involvement.
 
-
-<<<<<<< Updated upstream
-
-
-# Limitations{#sec-data3}
+# Limitations {#sec-data3}
 
 This study aimed to understand the reasons why students select and participate in ECAs at UTM. Although our results did not yield significant findings, several limitations may have contributed to this outcome:
-One such notable limitation is the way in which our data was collected. Although we proposed Stratified Random Sampling to collect our data, we ended up collecting with Simple Random Sampling. This likely lead to higher variance in our analysis and as a result, weaker conclusions.
-Another big limitation is the possibility of non-response bias in our sampling. Although the survey was distributed in a way that made it available to all students, in effect if certain students we’re choosing not to respond to surveys, their chance of being selected would be zero. In future studies, a better sampling methodology would have been to use StRS with either SRS or Systematic Sampling within the strata.
-If the study were to be repeated, there would be a number of changes we would like to make in addition to modifying the sampling methodology. We would change the student major question from multiselect to a select one and instruct students to select the major they commit the most time to; this would allow us to streamline and simplify the analysis. The question regarding days of the week could likely be dropped as it proved unbeneficial. This question could be instead replaced with one regarding what time of day students spend most in ECAs. Finally, we would likely change the question regarding students living distance from campus to commute distance. Since the study is interested in what factors affect ECA participation, considering commute distance would be more likely to provide useful information, as two students living the same distance from campus could have vastly different commute times and thus have different amounts of time they can spend on ECAs.
-
-
-# Conclusion
-
-This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga campus (UTM). Analysis on the preferred types of extracurricular activities whilst also examining whether demographic factors influence these preferences showed that although the most popular type of ECAs amongst students was Athletics and Sports, demographic factors such as gender, student status and program of study. Regarding, the proximity to campus and one's ability to participate in ECAs, there indicated a very weak positive relationship between the distance from campus and the number of activities that students engage in. Unfortunately, this relationship is not statistically significant. Finally, analysis on the time spent on ECAs indicates that there is a strong statistically significant relationship between time commitment and activity count. Notably, in the future, it would be more beneficial to consider time commuting as a variable of interest than distance from campus. Additionally, modifying the sampling methodology would be an important change if this study were to be repeated by other researchers.
-
-
-=======
-This study aimed to understand the reasons why students select and participate in ECAs at UTM. Although our results did not yield significant findings, several limitations may have contributed to this outcome:
-One such notable limitation is the way in which our data was collected. Although we proposed Stratified Random Sampling to collect our data, we ended up collecting with Simple Random Sampling. Sratified random sampling was not used due to our oversight and the simplicity of Simple random sampling method. This likely lead to higher variance in our analysis and as a result, weaker conclusions. In future studies, a better sampling methodology would have been to use StRS with either SRS or Systematic Sampling within the strata.
+One such notable limitation is the way in which our data was collected. Although we proposed Stratified Random Sampling to collect our data, we ended up collecting with Simple Random Sampling. Stratified random sampling was not used due to our oversight and the simplicity of Simple random sampling method. This likely lead to higher variance in our analysis and as a result, weaker conclusions. In future studies, a better sampling methodology would have been to use StRS with either SRS or Systematic Sampling within the strata.
 If the study were to be repeated, there would be a number of changes we would like to make in addition to modifying the sampling methodology. We would change the student major question from multiselect to a select one and instruct students to select the major they commit the most time to; this would allow us to streamline and simplify the analysis. The question regarding days of the week could likely be dropped as it proved to be nonbeneficial. This question could be instead replaced with one regarding what time of day students spend most in ECAs. Finally, we would likely change the question regarding students living distance from campus to commute distance. Since the study is interested in what factors affect ECA participation, considering commute distance would be more likely to provide useful information, as two students living the same distance from campus could have vastly different commute times and thus have different amounts of time they can spend on ECAs.
 
 # Conclusion
 
 This study aimed to investigate the reasons that students select certain extracurricular activities at the University of Toronto Mississauga campus (UTM). Analysis on the preferred types of extracurricular activities whilst also examining whether demographic factors influence these preferences showed that although the most popular type of ECAs amongst students was Athletics and Sports, demographic factors such as gender, student status and program of study have no significant effect on the preference for certain ECAs. Regarding the proximity to campus and one's ability to participate in ECAs, there indicated a very weak positive relationship between the distance from campus and the number of activities that students engage in. Unfortunately, this relationship is not statistically significant. Finally, analysis on the time spent on ECAs indicates that there is a strong statistically significant relationship between time commitment and activity count. Notably, in the future, it would be more beneficial to consider time commuting as a variable of interest than distance from campus. Additionally, modifying the sampling methodology would be an important change if this study were to be repeated by other researchers.
->>>>>>> Stashed changes
 \newpage
-
-
-# References
-
-
