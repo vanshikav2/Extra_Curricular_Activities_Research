@@ -32,6 +32,7 @@ library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
+library(gridExtra)
 data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 
 ```
@@ -200,13 +201,7 @@ To investigate the proportion of students participating in each activity by demo
 
 Before we began with our tests we first conducted preliminary assumption tests.
 
-### Testing for the Significance of Majors on Activity Proportion using the ANOVA Test
-
-The Assumptions of ANOVA are:
-
-1.  Normality: The data within each group should be normally distributed
-2.  Homogeneity of Variances: The variance of data within each group should be equal.
-3.  Random Sampling: Observations from each group have been sampled randomly and are independent of each other. (When we were collecting our sample this was already put into account)
+### Testing for the Significance of Majors on Activity Preference using the ANOVA Test
 
 To test for Normality we used a Q-Q residuals plot.
 
@@ -235,13 +230,9 @@ qqnorm(residuals, col = "purple", main = "Q-Q Plot of Residuals for ANOVA Model
 qqline(residuals, col = "black", lwd = 1)
 ```
 
-From the plot we can observe that the points almost follow a straight a line indicating that the residuals are approximately normally distributed.
+From the plot we can observe that the residuals are not normally distributed as they do not follow the straight line.
 
 To test the equality of variances within each group we used the Levene Test.
-
-***Null Hypothesis*** ($H_{o}$) : The population variances between the groups are equal.
-
-***Alternative Hypothesis*** ($H_{1}$) : The population variances between the groups are different.
 
 ```{r}
 #| echo: false
@@ -264,8 +255,9 @@ kable(levene_df, caption = "Levene Test on The Activity Preference by Major")
 ```
 
 For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.
+As much as the normality was violated we still opted to use the ANOVA test since it passed the Levene Test confirming the homogeneity of variances and the sample size is large enough.
 
-We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.
+We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student activity preferences and their respective majors.
 
 ```{r}
 #| echo: false
@@ -281,8 +273,6 @@ kable(anova_df, caption = "Anova Test on The Activity Preference by Major")
 ```
 
 After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.
-
-The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors 
 
 ```{r}
 #| echo: false
@@ -300,37 +290,12 @@ activity_lbls <- c(
   "5" = "NEC"   
 )
 
-# Boxplot for Major Influence
-ggplot(data, aes(x = major, y = activityTypeNumeric, fill = major)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Activity Preferences by Major",
-       x = "Major",
-       y = "Activity Type") +
-  scale_y_continuous(
-    breaks = 1:5,
-    labels = activity_lbls
-  )+
-  theme_minimal()
-
 ```
 
-### Testing for the Significance of Gender on Activity Proportion using the T-Test
+### Testing for the Significance of Gender on Activity Preference using the T-Test
 
-Before we begin with analysis, we must conduct preliminary tests to ensure that we are fit to use this test.
+Before we began the analysis, we conducted preliminary tests to ensure that we are fit to use this test.
 
-Assumptions of the T-test are:
-
-1\. Random Variables: The observations must be independent.(When sampling we took this into account)
-
-2\. Normality: The data in each group should be normally distributed.
-
-3\\=.Equality of Variances - The variances in the two groups should be approximately equal. 
-
-4\. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the number of the people in each activity type) 
-
-***Null Hypothesis*** ($H_{o}$) : The population means between the groups are equal.
-
-***Alternative Hypothesis*** ($H_{1}$) : The population means between the groups are different.
 
 ```{r}
 #| echo: false
@@ -395,7 +360,7 @@ Since our variances aren't equal and the normality assumption has also been viol
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Welch t-Test on Activity Proportion and GenderIdentity"
+#| tbl-cap: "Welch t-Test on Activity Preference and GenderIdentity"
 #| label: r8
 
 t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.equal = FALSE)
@@ -409,30 +374,7 @@ kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion by Ge
 With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
 Hence concluding that Gender doesn't influence peoples extracurricular choices.
 
-
-Aside from the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| tbl-cap: "Boxplot on Gender Identity and Activity Preference"
-#| label: r10
-#| 
-# Boxplot for Gender Influence
-ggplot(data, aes(x = genderIdentity, y = activityTypeNumeric, fill = genderIdentity)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Activity Preferences by Gender",
-       x = "Gender Identity",
-       y = "Activity Type (Numeric)") +
-  scale_y_continuous(
-    breaks = 1:5,
-    labels = activity_lbls)+
-  theme_minimal()
-```
-
-### Testing for the Significance of Student Status on Activity Proportion using the T-Test
+### Testing for the Significance of Student Status on Activity Preference using the T-Test
 
 We conducted preliminary tests before using the test and our results are as shown below.
 
@@ -456,8 +398,6 @@ shapiro_results <- data.frame(
   P_Value = c(shapiro_D$p.value, shapiro_I$p.value)
 )
 kable(shapiro_results, caption = "Shapiro Test on studentStatus")
-
-
 
 ```
 
@@ -508,16 +448,55 @@ kable(
 
 From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
 
-From the box plot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
+### Conclusion on Research Question 1
+The box plots below will help in validating and visualizing the results that we got above.
+
+For the first box plot, it is a representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors 
+
+In the middle box plot, we can see the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.
+
+On the last box plot, we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Boxplot of Student Status and Activity Preference"
+#| tbl-cap: "Boxplots of Student Status, Major and Gender on Activity Preference"
 #| label: r14
-ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatus)) +
+
+# Boxplot for Major influence
+plot1 <- ggplot(data, aes(x = major, y = activityTypeNumeric, fill = major)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Major",
+       x = "Major",
+       y = "Activity Type") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls
+  )+
+  theme_minimal() + 
+  theme(axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(size = 12), 
+    plot.margin = margin(10, 10, 10, 20)
+  )
+
+# Boxplot for Gender Influence
+plot2 <- ggplot(data, aes(x = genderIdentity, y = activityTypeNumeric, fill = genderIdentity)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Activity Preferences by Gender",
+       x = "Gender Identity",
+       y = "Activity Type (Numeric)") +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = activity_lbls)+
+  theme_minimal() + 
+  theme(axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(size = 12), 
+    plot.margin = margin(10, 10, 10, 20)
+  )
+# Boxplot for StudentStatus
+plot3 <- ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatus)) +
   geom_boxplot() +
   labs(title = "Boxplot of Activity Preferences by Student Status",
        x = "Student Status",
@@ -525,7 +504,13 @@ ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = studentStatu
   scale_y_continuous(
     breaks = 1:5,
     labels = activity_lbls)+
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(size = 12), 
+    plot.margin = margin(10, 10, 10, 20)
+  )
+
+grid.arrange(plot1, plot2, plot3, nrow = 2)
 ```
 
 ## Research Question 2

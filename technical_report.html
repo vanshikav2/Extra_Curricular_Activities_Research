@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,7 +11,7 @@
 <meta name="author" content="Shea Munson">
 <meta name="author" content="Alexia Mbagaya">
 <meta name="author" content="Chloe Syriac">
-<meta name="dcterms.date" content="2024-11-29">
+<meta name="dcterms.date" content="2024-11-30">
 
 <title>Various Demographic Factors Effect on Students’ Participation In Extracurricular Activities</title>
 <style>
@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 \usepackage{amssymb}
 \usepackage{pgfplots}
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -95,9 +95,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1"><span class="header-section-number">3.1</span> Research Question 1</a>
   <ul class="collapse">
-  <li><a href="#testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test" id="toc-testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test"><span class="header-section-number">3.1.1</span> Testing for the Significance of Majors on Activity Proportion using the ANOVA Test</a></li>
-  <li><a href="#testing-for-the-significance-of-gender-on-activity-proportion-using-the-t-test" id="toc-testing-for-the-significance-of-gender-on-activity-proportion-using-the-t-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-gender-on-activity-proportion-using-the-t-test"><span class="header-section-number">3.1.2</span> Testing for the Significance of Gender on Activity Proportion using the T-Test</a></li>
-  <li><a href="#testing-for-the-significance-of-student-status-on-activity-proportion-using-the-t-test" id="toc-testing-for-the-significance-of-student-status-on-activity-proportion-using-the-t-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-student-status-on-activity-proportion-using-the-t-test"><span class="header-section-number">3.1.3</span> Testing for the Significance of Student Status on Activity Proportion using the T-Test</a></li>
+  <li><a href="#testing-for-the-significance-of-majors-on-activity-preference-using-the-anova-test" id="toc-testing-for-the-significance-of-majors-on-activity-preference-using-the-anova-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-majors-on-activity-preference-using-the-anova-test"><span class="header-section-number">3.1.1</span> Testing for the Significance of Majors on Activity Preference using the ANOVA Test</a></li>
+  <li><a href="#testing-for-the-significance-of-gender-on-activity-preference-using-the-t-test" id="toc-testing-for-the-significance-of-gender-on-activity-preference-using-the-t-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-gender-on-activity-preference-using-the-t-test"><span class="header-section-number">3.1.2</span> Testing for the Significance of Gender on Activity Preference using the T-Test</a></li>
+  <li><a href="#testing-for-the-significance-of-student-status-on-activity-preference-using-the-t-test" id="toc-testing-for-the-significance-of-student-status-on-activity-preference-using-the-t-test" class="nav-link" data-scroll-target="#testing-for-the-significance-of-student-status-on-activity-preference-using-the-t-test"><span class="header-section-number">3.1.3</span> Testing for the Significance of Student Status on Activity Preference using the T-Test</a></li>
+  <li><a href="#conclusion-on-research-question-1" id="toc-conclusion-on-research-question-1" class="nav-link" data-scroll-target="#conclusion-on-research-question-1"><span class="header-section-number">3.1.4</span> Conclusion on Research Question 1</a></li>
   </ul></li>
   <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2"><span class="header-section-number">3.2</span> Research Question 2</a>
   <ul class="collapse">
@@ -140,7 +141,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 29, 2024</p>
+      <p class="date">November 30, 2024</p>
     </div>
   </div>
   
@@ -240,14 +241,8 @@ window.Quarto = {
 <p>According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.</p>
 <p>To investigate the proportion of students participating in each activity by demographic factors like Major, Student Status and Gender Identity, we used three statistical tests, namely ANOVA, Welch-t-Test and the Wilcoxon rank-sum Test.</p>
 <p>Before we began with our tests we first conducted preliminary assumption tests.</p>
-<section id="testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="testing-for-the-significance-of-majors-on-activity-proportion-using-the-anova-test"><span class="header-section-number">3.1.1</span> Testing for the Significance of Majors on Activity Proportion using the ANOVA Test</h3>
-<p>The Assumptions of ANOVA are:</p>
-<ol type="1">
-<li>Normality: The data within each group should be normally distributed</li>
-<li>Homogeneity of Variances: The variance of data within each group should be equal.</li>
-<li>Random Sampling: Observations from each group have been sampled randomly and are independent of each other. (When we were collecting our sample this was already put into account)</li>
-</ol>
+<section id="testing-for-the-significance-of-majors-on-activity-preference-using-the-anova-test" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="testing-for-the-significance-of-majors-on-activity-preference-using-the-anova-test"><span class="header-section-number">3.1.1</span> Testing for the Significance of Majors on Activity Preference using the ANOVA Test</h3>
 <p>To test for Normality we used a Q-Q residuals plot.</p>
 <div class="cell" data-tbl-cap="Q-Q Residuals Plot">
 <div class="cell-output-display">
@@ -258,13 +253,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>From the plot we can observe that the points almost follow a straight a line indicating that the residuals are approximately normally distributed.</p>
+<p>From the plot we can observe that the residuals are not normally distributed as they do not follow the straight line.</p>
 <p>To test the equality of variances within each group we used the Levene Test.</p>
-<p><strong><em>Null Hypothesis</em></strong> (<span class="math inline">\(H_{o}\)</span>) : The population variances between the groups are equal.</p>
-<p><strong><em>Alternative Hypothesis</em></strong> (<span class="math inline">\(H_{1}\)</span>) : The population variances between the groups are different.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Levene Test</caption>
 <thead>
 <tr class="header">
@@ -291,11 +284,11 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.</p>
-<p>We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student Activity Proportion and their respective majors.</p>
+<p>For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied. As much as the normality was violated we still opted to use the ANOVA test since it passed the Levene Test confirming the homogeneity of variances and the sample size is large enough.</p>
+<p>We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student activity preferences and their respective majors.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Anova Test of Activity Preference by Major</caption>
 <colgroup>
 <col style="width: 15%">
@@ -337,30 +330,13 @@ window.Quarto = {
 </div>
 </div>
 <p>After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.</p>
-<p>The box plot below is a visual representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors</p>
-<div class="cell" data-tbl-cap="Boxplot on Major and Activity Proportion">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="technical_report_files/figure-html/r5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
-<section id="testing-for-the-significance-of-gender-on-activity-proportion-using-the-t-test" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="testing-for-the-significance-of-gender-on-activity-proportion-using-the-t-test"><span class="header-section-number">3.1.2</span> Testing for the Significance of Gender on Activity Proportion using the T-Test</h3>
-<p>Before we begin with analysis, we must conduct preliminary tests to ensure that we are fit to use this test.</p>
-<p>Assumptions of the T-test are:</p>
-<p>1. Random Variables: The observations must be independent.(When sampling we took this into account)</p>
-<p>2. Normality: The data in each group should be normally distributed.</p>
-<p>3\=.Equality of Variances - The variances in the two groups should be approximately equal.</p>
-<p>4. The dependent variable should be measured on an interval or ratio scale.(This has been met as our dependent variable is the number of the people in each activity type)</p>
-<p><strong><em>Null Hypothesis</em></strong> (<span class="math inline">\(H_{o}\)</span>) : The population means between the groups are equal.</p>
-<p><strong><em>Alternative Hypothesis</em></strong> (<span class="math inline">\(H_{1}\)</span>) : The population means between the groups are different.</p>
+<section id="testing-for-the-significance-of-gender-on-activity-preference-using-the-t-test" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="testing-for-the-significance-of-gender-on-activity-preference-using-the-t-test"><span class="header-section-number">3.1.2</span> Testing for the Significance of Gender on Activity Preference using the T-Test</h3>
+<p>Before we began the analysis, we conducted preliminary tests to ensure that we are fit to use this test.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Shapiro-Wilk Test on Gender Groups</caption>
 <thead>
 <tr class="header">
@@ -388,7 +364,7 @@ window.Quarto = {
 <p>To test the second Assumption of equality of variances we used the Levene Test.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Levene Test on Equality of Variances across Student Status Groups</caption>
 <thead>
 <tr class="header">
@@ -419,8 +395,8 @@ window.Quarto = {
 <p>Since our variances aren’t equal and the normality assumption has also been violated we will conduct our significance test using the Welch t-Test.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Welch t-Test on Activity Proportion and GenderIdentity</caption>
+<table class="table table-sm table-striped small">
+<caption>Welch t-Test on Activity Preference and GenderIdentity</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -445,23 +421,13 @@ window.Quarto = {
 </div>
 </div>
 <p>With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). Hence concluding that Gender doesn’t influence peoples extracurricular choices.</p>
-<p>Aside from the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.</p>
-<div class="cell" data-tbl-cap="Boxplot on Gender Identity and Activity Preference">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="technical_report_files/figure-html/r10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
-<section id="testing-for-the-significance-of-student-status-on-activity-proportion-using-the-t-test" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="testing-for-the-significance-of-student-status-on-activity-proportion-using-the-t-test"><span class="header-section-number">3.1.3</span> Testing for the Significance of Student Status on Activity Proportion using the T-Test</h3>
+<section id="testing-for-the-significance-of-student-status-on-activity-preference-using-the-t-test" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="testing-for-the-significance-of-student-status-on-activity-preference-using-the-t-test"><span class="header-section-number">3.1.3</span> Testing for the Significance of Student Status on Activity Preference using the T-Test</h3>
 <p>We conducted preliminary tests before using the test and our results are as shown below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Shapiro Test on studentStatus</caption>
 <thead>
 <tr class="header">
@@ -487,7 +453,7 @@ window.Quarto = {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Levene Test for Activity Preference and Student Status</caption>
 <thead>
 <tr class="header">
@@ -519,7 +485,7 @@ window.Quarto = {
 <p>Since it failed the normality test, we opted to use the Wilcox test.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Wilcox Test of Activity Preference and Student Status</caption>
 <thead>
 <tr class="header">
@@ -539,8 +505,14 @@ window.Quarto = {
 </div>
 </div>
 <p>From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.</p>
-<p>From the box plot below we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.</p>
-<div class="cell" data-tbl-cap="Boxplot of Student Status and Activity Preference">
+</section>
+<section id="conclusion-on-research-question-1" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="conclusion-on-research-question-1"><span class="header-section-number">3.1.4</span> Conclusion on Research Question 1</h3>
+<p>The box plots below will help in validating and visualizing the results that we got above.</p>
+<p>For the first box plot, it is a representation of the activity preferences across the different majors. The overlap of the boxes heavily suggests that there is no significant difference in activity Preferences between majors</p>
+<p>In the middle box plot, we can see the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.</p>
+<p>On the last box plot, we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.</p>
+<div class="cell" data-tbl-cap="Boxplots of Student Status, Major and Gender on Activity Preference">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -563,7 +535,7 @@ window.Quarto = {
 <p>Statistical Test: To evaluate this, we used the correlation analysis test between campus distance and the number of extracurricular activities using Pearson’s correlation test. Prior to conducting this test, we will verify the assumptions for the test first.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Correlation Analysis</caption>
 <thead>
 <tr class="header">
@@ -610,7 +582,7 @@ window.Quarto = {
 <p>The descriptive statistics suggest that most students live fairly close to campus (within 2-3 units) and participate in 1-2 extracurricular activities. This variability in both campusDistance and activityCount supports further analysis to see if there’s a relationship between proximity and participation.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-plot1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-plot1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="technical_report_files/figure-html/fig-plot1-1.png" class="img-fluid figure-img" width="672">
@@ -646,14 +618,14 @@ Figure&nbsp;1: Scatter Plot
 <p>This plot helps in identifying any non-linearity, unequal variance (heteroscedasticity), or outliers. Here, residuals seem randomly scattered around the fitted line with no obvious pattern, suggesting homoscedasticity (constant variance). However, a few points like 33, 9, and 15 appear as potential outliers, which might influence the results.</p>
 <p>Since there is non-normality between these variables, we proceed with Spearman’s rank correlation to analyze the association between campus distance and activity count.</p>
 <div class="cell">
-<div id="tbl-plot4" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-plot4" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-plot4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Correlation Test Results
 </figcaption>
 <div aria-describedby="tbl-plot4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell table table-sm table-striped small">
 <caption>Summary of Correlation Test Results</caption>
 <colgroup>
 <col style="width: 32%">
@@ -711,7 +683,7 @@ Table&nbsp;1: Correlation Test Results
 <p><strong>Normality of Variables</strong>: In our exploration we found that the variables of timeCommitment (TC), and studentInvolvement (SI) are not normally distributed as seen by the QQ plots in <a href="#fig-normality-of-variables" class="quarto-xref">Figure&nbsp;2</a> as they deviate from the normality line. Hence we proceeded to apply the correlation test using the Spearman’s rank coefficient instead of Pearson’s coefficient (requiring normality).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-normality-of-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-normality-of-variables" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normality-of-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="technical_report_files/figure-html/fig-normality-of-variables-1.png" class="img-fluid figure-img" width="672">
@@ -726,7 +698,7 @@ Figure&nbsp;2: Normality of Variables
 <p><strong>Monotonic Association</strong>: Next we confirmed the assumption of Spearman’s rank coefficient test requiring a monotonic relationship between the variables (timeCommitment and studentInvovlement). We found that the relationship between these variables was monotonic, specifically increasing as seen in <a href="#fig-scatter-plot-involvement" class="quarto-xref">Figure&nbsp;3</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-scatter-plot-involvement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-scatter-plot-involvement" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-plot-involvement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="technical_report_files/figure-html/fig-scatter-plot-involvement-1.png" class="img-fluid figure-img" width="672">
@@ -740,14 +712,14 @@ Figure&nbsp;3: Checking Monotonicity
 </div>
 <p><strong>Results</strong>: As seen in <a href="#tbl-spear-corr" class="quarto-xref">Table&nbsp;2</a>, the Spearman’s rank correlation coefficient is 0.808, which indicates a strong positive correlation, pointing to a significant monotonic relationship between timeCommitment and studentInvolvement. p-value is &lt; 0.05, hence the correlation is statistically significant, and we can reject the null-hypothesis.</p>
 <div class="cell">
-<div id="tbl-spear-corr" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-spear-corr" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-spear-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Correlation Test Results
 </figcaption>
 <div aria-describedby="tbl-spear-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell table table-sm table-striped small">
 <caption>Spearman’s Rank Correlation Results</caption>
 <thead>
 <tr class="header">
@@ -782,7 +754,7 @@ Table&nbsp;2: Correlation Test Results
 <p>To proceed with this test, we used QQ-plots to verify normality of timeCommitment (TC) and activityCount(AC). As seen in <a href="#fig-normality-activity" class="quarto-xref">Figure&nbsp;4</a> they are non-normal variables due to their deviation from the normal line.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-normality-activity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-normality-activity" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normality-activity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="technical_report_files/figure-html/fig-normality-activity-1.png" class="img-fluid figure-img" width="672">
@@ -797,7 +769,7 @@ Figure&nbsp;4: Normality of Variables
 <p><strong>Monotonic Association</strong>: We confirmed that the relationship between these variables was monotonic, specifically increasing as seen in <a href="#fig-monotonic-activity" class="quarto-xref">Figure&nbsp;5</a></p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-monotonic-activity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-monotonic-activity" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-monotonic-activity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="technical_report_files/figure-html/fig-monotonic-activity-1.png" class="img-fluid figure-img" width="672">
@@ -811,7 +783,7 @@ Figure&nbsp;5: Checking Monotonicity
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Correlation Test Results</caption>
 <thead>
 <tr class="header">
@@ -883,7 +855,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -915,29 +898,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -945,7 +906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
