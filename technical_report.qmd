@@ -8,7 +8,7 @@ author:
   - Alexia Mbagaya
   - Chloe Syriac
   
-thanks: "Code and data are available at: https://github.com/vanshikav2/Extra_Curricular_Activities_Research"
+thanks: "Code and data available at: https://github.com/vanshikav2/Extra_Curricular_Activities_Research"
 date: today
 date-format: long
 header-includes:
@@ -27,12 +27,16 @@ toc: true
 #| message: false
 
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
+#library(ggplot2)
+#library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
 library(gridExtra)
+library(patchwork)
+library(treemapify)
+
+
 data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 
 ```
@@ -72,10 +76,6 @@ The analysis for our research questions is depending on student responses to the
 #| message: false
 #| tbl-cap: "Correlation Analysis"
 #| label: p3
-library(tidyverse)
-library(treemapify)
-library(gridExtra)
-library(patchwork)
 
 majTab=table(gsub("\\s+", "", unlist(strsplit(data$major,",")))) # Split into Single Items
 majDF=as.data.frame(majTab) # Convert to Data Frame
@@ -87,29 +87,30 @@ distanceDF=as.data.frame(table(data$campusDistance))
 distanceLabs=c("On Campus", "0-5km", "6-10km", "11-15km", "16-20km", "21+km")
 
 status <- ggplot(data=statusCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
-  geom_treemap(color="black", size=1.0) +
+  geom_treemap(color="black", size=0.8) +
   labs(title="Student Status", x="n = 63", caption = "Figure 1") + theme_minimal() +
   scale_fill_brewer(name="Options", labels=statusLabs, palette = "Set2") + 
-  geom_treemap_text(colour="black", place="center") 
+  geom_treemap_text(colour="black", place="center", size=10) 
   
 
 dist <- ggplot(data=distanceDF, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
-  geom_treemap(color="black", size=1.0) + 
+  geom_treemap(color="black", size=0.8) + 
   labs(title = "Distance From Campus", x="n = 63", caption = "Figure 2") +
   theme_minimal() +
   scale_fill_brewer(name="Distance", labels=distanceLabs, palette = "Set2") + 
-  geom_treemap_text(color="black", place="center") + 
+  geom_treemap_text(color="black", place="center", size=10) + 
   theme(plot.title = element_text(hjust = 0.5))
 
 maj <- ggplot(data=majDF, aes(x=Var1, y=Freq, fill=Var1)) + 
-  geom_bar(stat="identity", color="Black") + 
+  geom_bar(stat="identity", color="black", size=0.15) + 
   labs(x="Majors", y="Count", title = "Sample Majors Breakdown", caption = "Figure 3") + 
   theme_light() + 
   scale_fill_brewer(name="Options:", labels=majLabs, palette="Set2") + 
-  geom_text(aes(label=Freq), vjust=-.3, color="black") + 
+  geom_text(aes(label=Freq), vjust=-.3, color="black", size=3) + 
   theme(plot.title = element_text(hjust = 0.5),
         axis.title.y = element_text(size=12, angle=90), 
-        axis.text.x = element_text(size= 6))
+        axis.text.x = element_text(size= 6)) +
+        scale_y_continuous(expand = c(0.15, 0))
 
 (status + dist +  maj) + plot_layout(widths = c(1,1,1))
 
@@ -128,7 +129,7 @@ In this question we aimed to explore and find out which is the most preferred ty
 
 For the most preferred type of extracurricular activity, we were able to get the count of students in the different extracurricular activities and display a graph showing the counts of students in each extracurricular activity.
 
-```{r}
+```{r, fig.width=7}
 #| echo: false
 #| eval: true
 #| warning: false
@@ -172,7 +173,7 @@ activity_labels <- c(
 
 #Graph Showing the Activity Counts
 ggplot(data = activity_counts, aes(x = activityType, y = Frequency, fill = activityType)) +
-  geom_bar(stat = "identity", color = "black") +
+  geom_bar(stat = "identity", color = "black", size=0.3) +
   labs(
     x = "Activity Type",
     y = "Frequency",
@@ -184,9 +185,8 @@ ggplot(data = activity_counts, aes(x = activityType, y = Frequency, fill = activ
     labels = activity_labels,  
     palette = "Set2"  
   ) +
-  geom_text(aes(label = Frequency), vjust = -0.3, size = 4)
-
-
+  geom_text(aes(label = Frequency), vjust = -0.3, size = 4) +
+  scale_y_continuous(expand = c(0.1, 0))
 ```
 
 According to the bar plot, the most popular extracurricular activity among students was Athletics and Sports (AAS) with 42 students and the least popular extracurricular activity is Academic Societies (ACS) with 9 students. It was also particularly interesting to observe that most students do not participate in Extracurricular Activities, making the NEC category second in popularity.
