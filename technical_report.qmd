@@ -451,7 +451,7 @@ In the middle box plot, we can see the overlapping of the box plots, they also h
 
 On the last box plot, we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
-```{r}
+```{r, fig.width=10, fig.height=6}
 #| echo: false
 #| eval: true
 #| warning: false
@@ -503,6 +503,7 @@ plot3 <- ggplot(data, aes(x = studentStatus, y = activityTypeNumeric, fill = stu
     axis.title.y = element_text(size = 12), 
     plot.margin = margin(10, 10, 10, 20)
   )
+
 
 grid.arrange(plot1, plot2, plot3, nrow = 2)
 ```
