@@ -17,7 +17,7 @@ header-includes:
 ---
 # Introduction
 
-This appendex contains all code used in our technical report. It is ordered how it appears in the technical report, accompanied by any relevant comments.
+This appendix contains all code used in our technical report. It is ordered how it appears in the technical report, accompanied by any relevant comments.
 
 
 ```{r}
@@ -26,14 +26,14 @@ This appendex contains all code used in our technical report. It is ordered how 
 #| message: false
 
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
 library(gridExtra)
-data <- read.csv("STA304_TheOutliers_CleanedData.csv")
+library(patchwork)
+library(treemapify)
 
+data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 ```
 
 ```{r, fig.width=10, fig.height=3}
@@ -43,50 +43,44 @@ data <- read.csv("STA304_TheOutliers_CleanedData.csv")
 #| message: false
 #| tbl-cap: "Correlation Analysis"
 #| label: p3
-library(tidyverse)
-library(treemapify)
-library(gridExtra)
-library(patchwork)
 
-# Split into Single Items
-majTab=table(gsub("\\s+", "", unlist(strsplit(data$major,",")))) 
+majTab=table(gsub("\\s+", "", unlist(strsplit(data$major,",")))) # Split into Single Items
 # Convert to Data Frame
 majDF=as.data.frame(majTab) 
 # Refactor for Correct Plot Order
 majDF$Var1=fct_relevel(majDF$Var1, c("STA", "MAT", "CSC", "ECO", "LSC", "NLA")) 
 majLabs=c("Applied Statistics", "Mathematics", "Computer Science", "Economics", 
-          "Life Sciences", "Not Listed")
+          \"Life Sciences", "Not Listed")
 statusCounts=as.data.frame(table(data$studentStatus))
 statusLabs=c("Domestic", "International")
 distanceDF=as.data.frame(table(data$campusDistance))
 distanceLabs=c("On Campus", "0-5km", "6-10km", "11-15km", "16-20km", "21+km")
 
 status <- ggplot(data=statusCounts, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
-  geom_treemap(color="black", size=1.0) +
-  labs(title="Student Status", x="n = 63", caption = "Figure 1") + 
-  theme_minimal() +
+  geom_treemap(color="black", size=0.8) +
+  labs(title="Student Status", x="n = 63", caption = "Figure 1") + theme_minimal() +
   scale_fill_brewer(name="Options", labels=statusLabs, palette = "Set2") + 
-  geom_treemap_text(colour="black", place="center") 
+  geom_treemap_text(colour="black", place="center", size=10) 
   
 
 dist <- ggplot(data=distanceDF, aes(area=Freq, fill=Var1, label=paste(Freq))) + 
-  geom_treemap(color="black", size=1.0) + 
+  geom_treemap(color="black", size=0.8) + 
   labs(title = "Distance From Campus", x="n = 63", caption = "Figure 2") +
   theme_minimal() +
   scale_fill_brewer(name="Distance", labels=distanceLabs, palette = "Set2") + 
-  geom_treemap_text(color="black", place="center") + 
+  geom_treemap_text(color="black", place="center", size=10) + 
   theme(plot.title = element_text(hjust = 0.5))
 
 maj <- ggplot(data=majDF, aes(x=Var1, y=Freq, fill=Var1)) + 
-  geom_bar(stat="identity", color="Black") + 
+  geom_bar(stat="identity", color="black", size=0.15) + 
   labs(x="Majors", y="Count", title = "Sample Majors Breakdown", 
-       caption = "Figure 3") + 
-  theme_light() + 
+       caption = "Figure 3") + theme_light() + 
   scale_fill_brewer(name="Options:", labels=majLabs, palette="Set2") + 
-  geom_text(aes(label=Freq), vjust=-.3, color="black") + 
+  geom_text(aes(label=Freq), vjust=-.3, color="black", size=3) + 
   theme(plot.title = element_text(hjust = 0.5),
         axis.title.y = element_text(size=12, angle=90), 
-        axis.text.x = element_text(size= 6))
+        axis.text.x = element_text(size= 6)) +
+        scale_y_continuous(expand = c(0.15, 0))
 
 (status + dist +  maj) + plot_layout(widths = c(1,1,1))
 
@@ -94,7 +88,7 @@ maj <- ggplot(data=majDF, aes(x=Var1, y=Freq, fill=Var1)) +
 
 ## Research Question 1
 
-```{r}
+```{r, fig.width=7}
 #| echo: true
 #| eval: false
 #| warning: false
@@ -140,7 +134,7 @@ activity_labels <- c(
 #Graph Showing the Activity Counts
 ggplot(data = activity_counts, aes(x = activityType, y = Frequency, 
                                    fill = activityType)) +
-  geom_bar(stat = "identity", color = "black") +
+  geom_bar(stat = "identity", color = "black", size=0.3) +
   labs(
     x = "Activity Type",
     y = "Frequency",
@@ -152,9 +146,8 @@ ggplot(data = activity_counts, aes(x = activityType, y = Frequency,
     labels = activity_labels,  
     palette = "Set2"  
   ) +
-  geom_text(aes(label = Frequency), vjust = -0.3, size = 4)
-
-
+  geom_text(aes(label = Frequency), vjust = -0.3, size = 4) +
+  scale_y_continuous(expand = c(0.1, 0))
 ```
 
 ### Testing for the Significance of Majors on Activity Preference using the ANOVA Test
@@ -303,7 +296,9 @@ t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data,
 
 t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, 
                                DF = t_test_gender$parameter, 
-                               p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
+                               p_value = t_test_gender$p.value, 
+                               MEAN_FEMALE =t_test_gender$estimate[1], 
+                               MEAN_MALE = t_test_gender$estimate[2])
 
 kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion 
       by Gender")
@@ -705,9 +700,12 @@ kable(table_results, caption = "Spearman's Rank Correlation Results")
 # Generative AI
 Generative AI was used for assistance in troubleshooting code, formatting, and editing. No generative AI was used to create data or make the contents of the report other than that listed above. Links to the generative AI conversations are linked below.
 
-https://g.co/gemini/share/67545eab5501 \n
-https://g.co/gemini/share/781ab6a1b9aa \n
-https://g.co/gemini/share/301105d9bd4b \n
-https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b \n
+[https://g.co/gemini/share/67545eab5501](https://g.co/gemini/share/67545eab5501)
+
+[https://g.co/gemini/share/781ab6a1b9aa](https://g.co/gemini/share/781ab6a1b9aa)
+
+[https://g.co/gemini/share/301105d9bd4b](https://g.co/gemini/share/301105d9bd4b)
+
+[https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b](https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b) 
 
 Additional conversation outputs are available in GitHub.
