@@ -553,9 +553,10 @@ The descriptive statistics suggest that most students live fairly close to campu
 #| label: fig-plot1
 # Load necessary libraries
 library(ggplot2)
+library(gridExtra)
 
 # Scatter plot with smoothing line to assess linearity
-ggplot(data, aes(x = campusDistance, y = activityCount)) +
+a <- ggplot(data, aes(x = campusDistance, y = activityCount)) +
   geom_point(color ="darkgreen") +
   geom_smooth(method = "lm", col = "orange", se = FALSE) +
   labs(title = "Campus Distance vs. Activity Count with Linear Trend Line",
@@ -564,21 +565,27 @@ ggplot(data, aes(x = campusDistance, y = activityCount)) +
 
 ```
 
-Moving on we inspect the relationship between the variables. As it can be seen from @fig-plot1, there seems to be no linear relation between the variables.
+Moving on we inspect the relationship between the variables. As it can be seen from @plot2, there seems to be no linear relation between the variables.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| fig-cap: "Scatter Plot"
+#| fig-cap: "Scatter Plot and QQ-Plot"
 #| label: plot2
 # Fit preliminary model
 model <- lm(activityCount ~ campusDistance, data = data)
 
-# Q-Q plot for normality of residuals
-qqnorm(residuals(model))
-qqline(residuals(model), col = "red")
+
+b <- ggplot() +
+  geom_point(aes(sample = residuals(model)), stat = "qq", color = "darkgreen") +
+  geom_abline(slope = 1, intercept = 0, col = "red") +
+  labs(title = "Q-Q Plot of Residuals",
+       x = "Theoretical Quantiles",
+       y = "Sample Quantiles")
+
+grid.arrange(a, b, ncol=2)
 
 ```
 
@@ -589,7 +596,7 @@ The Q-Q plot displays how the residuals (differences between observed and fitted
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Scatter Plot"
+#| tbl-cap: "Residuals vs Fitted"
 #| label: plot3
 
 
