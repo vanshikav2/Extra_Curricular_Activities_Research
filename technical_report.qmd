@@ -264,7 +264,7 @@ anova_df[is.na(anova_df)] <- ""
 kable(anova_df, caption = "Anova Test on The Activity Preference by Major")
 ```
 
-After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than α = 0.05 we concluded that the differences in mean activity preferences across majors are not statistically significant.
+After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than $\alpha = 0.05$ we concluded that the differences in mean activity preferences across majors are not statistically significant.
 
 ```{r}
 #| echo: false
@@ -363,7 +363,7 @@ kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion by Ge
 
 ```
 
-With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females(mean = 3.125) and males(mean = 2.8684). 
+With a T-statistic of 0.8614, degrees of freedom of 111.33 and a p-value of 0.3908, we failed to reject the null hypothesis since p-value is greater the significance level of 0.05. This therefore indicates that there is no significant difference in the mean activity preferences between females ($\mu_{F} = 3.125$) and males ($\mu_{M} = 2.8684$). 
 Hence concluding that Gender doesn't influence peoples extracurricular choices.
 
 ### Testing for the Significance of Student Status on Activity Preference using the T-Test
@@ -411,7 +411,7 @@ levene_status_df[is.na(levene_status_df)] <- ""
 kable(levene_status_df, caption = "Levene Test on studentStatus")
 ```
 
-From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  α = 0.05 allowing us to reject the null hypothesis. 
+From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  $\alpha$ = 0.05 allowing us to reject the null hypothesis. 
 
 For the Levene Test, an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should fail to reject the null hypothesis meaning that there is no difference in variances of activity preferences between the student status groups. 
 
@@ -565,7 +565,7 @@ a <- ggplot(data, aes(x = campusDistance, y = activityCount)) +
 
 ```
 
-Moving on we inspect the relationship between the variables. As it can be seen from @plot2, there seems to be no linear relation between the variables.
+Moving on we inspect the relationship between the variables. As it can be seen from @fig-plot2, there seems to be no linear relation between the variables.
 
 ```{r}
 #| echo: false
@@ -573,7 +573,7 @@ Moving on we inspect the relationship between the variables. As it can be seen f
 #| warning: false
 #| message: false
 #| fig-cap: "Scatter Plot and QQ-Plot"
-#| label: plot2
+#| label: fig-plot2
 # Fit preliminary model
 model <- lm(activityCount ~ campusDistance, data = data)
 
