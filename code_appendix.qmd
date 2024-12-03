@@ -15,10 +15,10 @@ header-includes:
   - \usepackage{amssymb}
   - \usepackage{pgfplots}
 ---
+
 # Introduction
 
 This appendix contains all code used in our technical report. It is ordered how it appears in the technical report, accompanied by any relevant comments.
-
 
 ```{r}
 #| include: false
@@ -176,7 +176,6 @@ qqnorm(residuals, col = "purple", main = "Q-Q Plot of Residuals for ANOVA Model
 
 qqline(residuals, col = "black", lwd = 1)
 ```
-
 
 ```{r}
 #| echo: true
@@ -429,6 +428,7 @@ grid.arrange(plot1, plot2, plot3, nrow = 2)
 ```
 
 ## Research Question 2
+
 ### Campus Distance and Activity Count
 
 ```{r}
@@ -530,7 +530,8 @@ kable(correlation_results, caption = "Summary of Correlation Test Results")
 ```
 
 ## Research Question 3
-### Time Commitment and Student Involvement
+
+### Time Commitment vs. Student Involvement and Activity Count
 
 ```{r, fig.width=9}
 #| echo: true
@@ -538,44 +539,63 @@ kable(correlation_results, caption = "Summary of Correlation Test Results")
 #| warning: false
 #| message: false
 #| fig-cap: "Normality of Variables"
-#| label: fig-normality-of-variables 
+#| label: fig-combined-normality
+
 library(rstanarm)
 
-# Set up the plotting area for two plots side by side
-par(mfrow = c(1, 2)) 
+# Set up the plotting area for 4 plots (2 rows, 2 columns)
+par(mfrow = c(1, 3))
 
-# QQ plot for timeCommitment
+# QQ plot for timeCommitment (from the first chunk)
 qqnorm(data$timeCommitment, main = "QQ Plot (TC)", 
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(data$timeCommitment, col = "red")
 
-# QQ plot for studentInvolvement
+# QQ plot for studentInvolvement (from the first chunk)
 qqnorm(data$studentInvolvement, main = "QQ Plot (SI)", 
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(data$studentInvolvement, col = "blue")
 
-# Reset the plotting layout to default (if needed for subsequent plots)
-par(mfrow = c(1, 1))
 
+# QQ plot for activityCount (from the second chunk)
+qqnorm(data$activityCount, main = "QQ Plot (AC)", 
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(data$activityCount, col = "blue")
+
+# Reset the plotting layout to default
+par(mfrow = c(1, 1))
 ```
 
 ```{r}
+#| label: fig-monotonic-activity
 #| echo: true
 #| eval: false
 #| warning: false
 #| message: false
 #| fig-cap: "Checking Monotonicity"
-#| label: fig-scatter-plot-involvement
+
 # Load necessary libraries
 library(ggplot2)
+library(patchwork)
 
-# Create a scatter plot
-ggplot(data, aes(x = timeCommitment, y = studentInvolvement)) +
-  geom_point(color = "darkgreen") + # Set points to green
-  geom_smooth(method = "lm", color = "orange", se = FALSE) + # Set line to orange
-  ggtitle("Time Commitment and Student Involvement") +
-  xlab("Time per week (hrs)") +
-  ylab("Involvement (1-10)")
+# Create the first scatter plot with smaller title
+plot1 <- ggplot(data, aes(x = timeCommitment, y = studentInvolvement)) +
+  geom_point(color = "darkgreen") +                            # Set points to green
+  geom_smooth(method = "lm", color = "orange", se = FALSE) +   # Set line to orange
+  ggtitle("Time Commit. vs. Student Involvement") +
+  xlab("Time per week (hrs)") + ylab("Involvement (1-10)") +
+  theme(plot.title = element_text(size = 10))                 # Reduce title size
+
+# Create the second scatter plot with smaller title
+plot2 <- ggplot(data, aes(x = timeCommitment, y = activityCount)) +
+  geom_point(color = "darkgreen") +                            # Set points to green
+  geom_smooth(method = "lm", color = "orange", se = FALSE) +   # Set line to orange
+  ggtitle("Time Commit. vs. Activity Count") +
+  xlab("Time per week (hrs)") + ylab("Number of Activities") +
+  theme(plot.title = element_text(size = 10))                 # Reduce title size
+
+# Combine the plots side by side
+plot1 + plot2
 
 
 ```
@@ -620,55 +640,6 @@ kable(table_results, caption = "Spearman's Rank Correlation Results")
 #| eval: false
 #| warning: false
 #| message: false
-#| fig-cap: "Normality of Variables"
-#| label: fig-normality-activity
-library(rstanarm)
-
-# Set up the plotting area for two plots side by side
-par(mfrow = c(1, 2)) 
-
-# QQ plot for timeCommitment 
-qqnorm(data$timeCommitment, main = "QQ Plot (TC)", 
-       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(data$timeCommitment, col = "red")
-
-# QQ plot for activity count 
-qqnorm(data$activityCount, main = "QQ Plot (AC)", 
-       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(data$studentInvolvement, col = "blue")
-
-# Reset the plotting layout to default (if needed for subsequent plots)
-par(mfrow = c(1, 1))
-
-```
-
-```{r}
-#| label: fig-monotonic-activity
-#| echo: true
-#| eval: false
-#| warning: false
-#| message: false
-#| fig-cap: "Checking Monotonicity"
-
-# Load necessary libraries
-library(ggplot2)
-
-# Create a scatter plot
-ggplot(data, aes(x = timeCommitment, y = activityCount)) +
-  geom_point(color = "darkgreen") +                       # Set points to green
-  geom_smooth(method = "lm", color = "orange", se = FALSE) + # Set line to orange
-  ggtitle("Time Commitment and Activity Count") +
-  xlab("Time per week (hrs)") +
-  ylab("Number of Activities")
-
-
-```
-
-```{r}
-#| echo: true
-#| eval: false
-#| warning: false
-#| message: false
 #| tbl-cap: "Correlation Test Results"
 #| label: spear_corr_2
 
@@ -698,14 +669,17 @@ kable(table_results, caption = "Spearman's Rank Correlation Results")
 ```
 
 # Generative AI
+
 Generative AI was used for assistance in troubleshooting code, formatting, and editing. No generative AI was used to create data or make the contents of the report other than that listed above. Links to the generative AI conversations are linked below.
 
-[https://g.co/gemini/share/67545eab5501](https://g.co/gemini/share/67545eab5501)
+<https://g.co/gemini/share/67545eab5501>
 
-[https://g.co/gemini/share/781ab6a1b9aa](https://g.co/gemini/share/781ab6a1b9aa)
+<https://g.co/gemini/share/781ab6a1b9aa>
 
-[https://g.co/gemini/share/301105d9bd4b](https://g.co/gemini/share/301105d9bd4b)
+<https://g.co/gemini/share/301105d9bd4b>
 
-[https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b](https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b) 
+<https://chatgpt.com/share/6732d55a-4ab4-8010-bbf7-f1c1a85bdc5b>
+
+<https://chatgpt.com/share/674e6690-6060-8008-b3aa-5b3eb07ce61d> 
 
 Additional conversation outputs are available in GitHub.
